@@ -43,39 +43,39 @@ const GuideDashboard = () => {
   return (
     <>
       <Navbar />
-      <div className="max-w-4xl mx-auto py-8 px-4">
-        <h1 className="text-2xl font-bold mb-4">Guide Dashboard</h1>
-        <form onSubmit={handleCreateTour} className="bg-white p-4 rounded shadow mb-6 flex flex-col gap-2">
+      <main className="max-w-4xl mx-auto py-8 px-2 sm:px-4">
+        <h1 className="text-2xl font-bold mb-4 text-center">Guide Dashboard</h1>
+        <form onSubmit={handleCreateTour} className="bg-white p-4 rounded shadow mb-6 flex flex-col gap-2" aria-label="Create new tour">
           <h2 className="font-semibold">Create New Tour</h2>
-          {error && <div className="text-red-500">{error}</div>}
-          <input name="title" placeholder="Title" value={newTour.title} onChange={handleChange} className="border p-2 rounded" required />
-          <input name="description" placeholder="Description" value={newTour.description} onChange={handleChange} className="border p-2 rounded" required />
-          <input name="location" placeholder="Location" value={newTour.location} onChange={handleChange} className="border p-2 rounded" required />
-          <input name="category" placeholder="Category" value={newTour.category} onChange={handleChange} className="border p-2 rounded" required />
-          <input name="language" placeholder="Language" value={newTour.language} onChange={handleChange} className="border p-2 rounded" required />
-          <input name="price" type="number" placeholder="Price" value={newTour.price} onChange={handleChange} className="border p-2 rounded" required />
-          <input name="availabilityDates" placeholder="Availability Dates (comma separated YYYY-MM-DD)" value={newTour.availabilityDates} onChange={handleChange} className="border p-2 rounded" required />
-          <button type="submit" className="bg-blue-600 text-white py-2 rounded">Create Tour</button>
+          {error && <div className="text-red-500" role="alert">{error}</div>}
+          <input name="title" placeholder="Title" aria-label="Title" value={newTour.title} onChange={handleChange} className="border p-2 rounded focus:outline-blue-400" required />
+          <input name="description" placeholder="Description" aria-label="Description" value={newTour.description} onChange={handleChange} className="border p-2 rounded focus:outline-blue-400" required />
+          <input name="location" placeholder="Location" aria-label="Location" value={newTour.location} onChange={handleChange} className="border p-2 rounded focus:outline-blue-400" required />
+          <input name="category" placeholder="Category" aria-label="Category" value={newTour.category} onChange={handleChange} className="border p-2 rounded focus:outline-blue-400" required />
+          <input name="language" placeholder="Language" aria-label="Language" value={newTour.language} onChange={handleChange} className="border p-2 rounded focus:outline-blue-400" required />
+          <input name="price" type="number" placeholder="Price" aria-label="Price" value={newTour.price} onChange={handleChange} className="border p-2 rounded focus:outline-blue-400" required />
+          <input name="availabilityDates" placeholder="Availability Dates (comma separated YYYY-MM-DD)" aria-label="Availability Dates" value={newTour.availabilityDates} onChange={handleChange} className="border p-2 rounded focus:outline-blue-400" required />
+          <button type="submit" className="bg-blue-600 text-white py-2 rounded focus:ring-2 focus:ring-blue-400">Create Tour</button>
         </form>
         <h2 className="font-semibold mb-2">Requested Bookings</h2>
         <div className="space-y-4 mb-6">
           {bookings.map(b => (
-            <div key={b._id} className="border rounded p-4 bg-white shadow flex justify-between items-center">
-              <div>
+            <div key={b._id} className="border rounded p-4 bg-white shadow flex flex-col md:flex-row justify-between items-center gap-2">
+              <div className="w-full md:w-auto">
                 <div className="font-bold">{b.tourId?.title}</div>
                 <div>Status: <span className="font-semibold">{b.status}</span></div>
                 <div>Tourist: {b.touristId?.name}</div>
               </div>
               {b.status === 'Pending' && (
-                <div className="flex gap-2">
-                  <button onClick={() => handleApprove(b._id, 'Approved')} className="bg-green-500 text-white px-3 py-1 rounded">Approve</button>
-                  <button onClick={() => handleApprove(b._id, 'Rejected')} className="bg-red-500 text-white px-3 py-1 rounded">Reject</button>
+                <div className="flex gap-2 mt-2 md:mt-0">
+                  <button onClick={() => handleApprove(b._id, 'Approved')} className="bg-green-500 text-white px-3 py-1 rounded focus:ring-2 focus:ring-green-400">Approve</button>
+                  <button onClick={() => handleApprove(b._id, 'Rejected')} className="bg-red-500 text-white px-3 py-1 rounded focus:ring-2 focus:ring-red-400">Reject</button>
                 </div>
               )}
             </div>
           ))}
         </div>
-      </div>
+      </main>
     </>
   );
 };
