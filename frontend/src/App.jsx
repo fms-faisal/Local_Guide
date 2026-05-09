@@ -26,7 +26,8 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/tours" element={<TourListings />} />
-            <Route path="/tours/:id" element={<require('./pages/TourDetails').default />} />
+            <Route path="/tours/:id" element={<TourDetails />} />
+            import TourDetails from './pages/TourDetails';
             <Route path="/dashboard/tourist" element={
               <ProtectedRoute roles={["Tourist"]}>
                 <TouristDashboard />
