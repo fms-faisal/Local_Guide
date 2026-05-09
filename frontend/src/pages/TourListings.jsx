@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from 'react';
 import api from '../services/api';
-import Navbar from '../components/Navbar';
+// import Navbar from '../components/Navbar';
 import TourCard from '../components/TourCard';
 import Spinner from '../components/Spinner';
 
@@ -39,7 +39,7 @@ const TourListings = () => {
 
   return (
     <>
-      <Navbar />
+
       <main className="max-w-5xl mx-auto py-8 px-2 sm:px-4">
         <h1 className="text-2xl font-bold mb-4 text-center">Available Tours</h1>
         <form className="flex flex-col sm:flex-row flex-wrap gap-2 mb-6" onSubmit={handleFilter} aria-label="Filter tours">

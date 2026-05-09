@@ -1,4 +1,4 @@
-import Navbar from '../components/Navbar';
+// import Navbar from '../components/Navbar';
 import DashboardSidebar from '../components/DashboardSidebar';
 import { useEffect, useState } from 'react';
 import api from '../services/api';
@@ -17,7 +17,7 @@ const AdminDashboard = () => {
     <div className="flex">
       <DashboardSidebar />
       <div className="flex-1">
-        <Navbar />
+
         <main className="max-w-4xl mx-auto py-8 px-2 sm:px-4">
         <h1 className="text-2xl font-bold mb-4 text-center">Admin Dashboard</h1>
         <div className="bg-white p-4 rounded shadow mb-6">
