@@ -1,3 +1,4 @@
+
 import Navbar from '../components/Navbar';
 import { useEffect, useState } from 'react';
 import api from '../services/api';
@@ -5,16 +6,15 @@ import { useAuth } from '../context/AuthContext';
 
 const GuideDashboard = () => {
   const [bookings, setBookings] = useState([]);
-  const [tours, setTours] = useState([]);
   const [newTour, setNewTour] = useState({ title: '', description: '', location: '', category: '', language: '', price: '', availabilityDates: '' });
   const [error, setError] = useState('');
+  const { user } = useAuth();
 
   useEffect(() => {
     api.get('/bookings/my-bookings').then(res => setBookings(res.data));
-    api.get('/tours').then(res => setTours(res.data.filter(t => t.guideId?._id === user?.id)));
-  }, []);
-
-  const { user } = useAuth();
+    // If you want to use tours, uncomment and use as needed:
+    // api.get('/tours').then(res => setTours(res.data.filter(t => t.guideId?._id === user?.id)));
+  }, [user?.id]);
 
   const handleChange = e => {
     setNewTour({ ...newTour, [e.target.name]: e.target.value });

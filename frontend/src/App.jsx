@@ -1,3 +1,4 @@
+
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import Home from './pages/Home';
@@ -9,9 +10,11 @@ import GuideDashboard from './pages/GuideDashboard';
 import AdminDashboard from './pages/AdminDashboard';
 import ProtectedRoute from './components/ProtectedRoute';
 
+
 function App() {
   return (
     <AuthProvider>
+      {/* Tailwind test bar removed for production UI */}
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />

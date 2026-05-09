@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import api from '../services/api';
 import Navbar from '../components/Navbar';
@@ -7,11 +8,6 @@ const TourListings = () => {
   const [tours, setTours] = useState([]);
   const [filters, setFilters] = useState({ location: '', price: '', language: '' });
 
-  useEffect(() => {
-    fetchTours();
-    // eslint-disable-next-line
-  }, []);
-
   const fetchTours = async () => {
     const params = {};
     if (filters.location) params.location = filters.location;
@@ -20,6 +16,11 @@ const TourListings = () => {
     const res = await api.get('/tours', { params });
     setTours(res.data);
   };
+
+  useEffect(() => {
+    fetchTours();
+    // eslint-disable-next-line
+  }, []);
 
   const handleChange = e => {
     setFilters({ ...filters, [e.target.name]: e.target.value });
