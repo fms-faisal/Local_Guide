@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import api from '../services/api';
-// import Navbar from '../components/Navbar';
+import Navbar from '../components/Navbar';
 
 const Register = () => {
   const [form, setForm] = useState({ name: '', email: '', password: '', role: 'Tourist', bio: '', location: '' });
@@ -36,7 +36,7 @@ const Register = () => {
 
   return (
     <>
-
+      <Navbar />
       <main className="max-w-md mx-auto mt-10 p-4 sm:p-6 bg-white rounded shadow">
         <h2 className="text-xl font-bold mb-4 text-center">Register</h2>
         {error && <div className="text-red-500 mb-2" role="alert">{error}</div>}

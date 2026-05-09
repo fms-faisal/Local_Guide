@@ -1,5 +1,6 @@
 
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import api from '../services/api';
 
@@ -35,7 +36,7 @@ const TourCard = ({ tour }) => {
 
   return (
     <div className="bg-white rounded shadow p-4 flex flex-col gap-2">
-      <div className="font-bold text-lg">{tour.title}</div>
+      <Link to={`/tours/${tour._id}`} className="font-bold text-lg hover:underline">{tour.title}</Link>
       <div>{tour.description}</div>
       <div className="text-sm text-gray-600">Location: {tour.location}</div>
       <div className="text-sm text-gray-600">Language: {tour.language}</div>
@@ -45,15 +46,6 @@ const TourCard = ({ tour }) => {
         <>
           <button onClick={handleBook} className="bg-blue-600 text-white px-3 py-1 rounded mt-2 focus:ring-2 focus:ring-blue-400">Book Tour</button>
           {bookingMsg && <div className="text-green-600 text-sm mt-1" role="alert">{bookingMsg}</div>}
-          <form onSubmit={handleReview} className="flex flex-col gap-1 mt-2" aria-label="Submit review">
-            <label className="text-sm">Leave a Review:</label>
-            <select value={rating} onChange={e => setRating(Number(e.target.value))} className="border p-1 rounded w-20 focus:outline-blue-400" aria-label="Rating">
-              {[5,4,3,2,1].map(r => <option key={r} value={r}>{r} Star{r > 1 && 's'}</option>)}
-            </select>
-            <textarea value={review} onChange={e => setReview(e.target.value)} placeholder="Your review..." className="border p-1 rounded focus:outline-blue-400" rows={2} aria-label="Review" />
-            <button type="submit" className="bg-green-600 text-white px-2 py-1 rounded focus:ring-2 focus:ring-green-400">Submit Review</button>
-            {reviewMsg && <div className="text-green-600 text-sm mt-1" role="alert">{reviewMsg}</div>}
-          </form>
         </>
       )}
     </div>

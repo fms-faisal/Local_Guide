@@ -15,6 +15,7 @@ import Footer from './components/Footer';
 import Breadcrumbs from './components/Breadcrumbs';
 
 
+function App() {
   return (
     <Router>
       <div className="min-h-screen flex flex-col">
@@ -25,6 +26,7 @@ import Breadcrumbs from './components/Breadcrumbs';
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/tours" element={<TourListings />} />
+            <Route path="/tours/:id" element={<require('./pages/TourDetails').default />} />
             <Route path="/dashboard/tourist" element={
               <ProtectedRoute roles={["Tourist"]}>
                 <TouristDashboard />

@@ -1,8 +1,9 @@
-// import Navbar from '../components/Navbar';
+import Navbar from '../components/Navbar';
 import { Link } from 'react-router-dom';
 
 const Home = () => (
   <>
+    <Navbar />
     <main className="max-w-3xl mx-auto py-10 px-2 sm:px-4">
       <h1 className="text-3xl font-bold mb-4 text-center">Find Your Perfect Local Guide</h1>
       <form className="flex flex-col sm:flex-row gap-2 mb-8" aria-label="Search tours by location">
