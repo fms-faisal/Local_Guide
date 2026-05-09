@@ -1,5 +1,7 @@
+import NotFound from './pages/NotFound';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import ErrorBoundary from './components/ErrorBoundary';
 import { AuthProvider } from './context/AuthContext';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -13,31 +15,34 @@ import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
-    <AuthProvider>
-      {/* Tailwind test bar removed for production UI */}
+    <ErrorBoundary>
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/tours" element={<TourListings />} />
           <Route path="/dashboard/tourist" element={
-          <Route path="/dashboard/tourist" element={
-            <ProtectedRoute roles={['Tourist']}>
+            <ProtectedRoute roles={["Tourist"]}>
               <TouristDashboard />
             </ProtectedRoute>
-          <Route path="/dashboard/guide" element={
           } />
           <Route path="/dashboard/guide" element={
-            <ProtectedRoute roles={['Guide']}>
+            <ProtectedRoute roles={["Guide"]}>
               <GuideDashboard />
-          <Route path="/dashboard/admin" element={
             </ProtectedRoute>
           } />
           <Route path="/dashboard/admin" element={
-            <ProtectedRoute roles={['Admin']}>
-          <Route path="/profile" element={<Profile />} />
+            <ProtectedRoute roles={["Admin"]}>
               <AdminDashboard />
             </ProtectedRoute>
           } />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
+      </Router>
+    </ErrorBoundary>
+  );
       </Router>
     </AuthProvider>
   );
