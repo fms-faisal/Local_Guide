@@ -1,6 +1,6 @@
 import NotFound from './pages/NotFound';
 
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -11,12 +11,15 @@ import GuideDashboard from './pages/GuideDashboard';
 import AdminDashboard from './pages/AdminDashboard';
 import ProtectedRoute from './components/ProtectedRoute';
 import Profile from './pages/Profile';
+import PageTransition from './components/PageTransition';
+import './page-transitions.css';
 
 
 function App() {
+  const location = useLocation();
   return (
-    <Router>
-      <Routes>
+    <PageTransition>
+      <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
@@ -39,8 +42,14 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-    </Router>
+    </PageTransition>
   );
 }
 
-export default App;
+const AppWithRouter = () => (
+  <Router>
+    <App />
+  </Router>
+);
+
+export default AppWithRouter;
