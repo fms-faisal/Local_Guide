@@ -1,19 +1,26 @@
 @import "tailwindcss";
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap");
 
 body {
-	@apply font-sans bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100;
+  @apply font-sans bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100;
 }
 
-h1, .text-3xl, .text-2xl, .text-xl {
-	@apply font-bold;
+h1,
+.text-3xl,
+.text-2xl,
+.text-xl {
+  @apply font-bold;
 }
 
 a {
-	@apply text-primary hover:underline;
+  @apply text-blue-600 hover:underline;
 }
 
 button {
-	@apply transition focus:outline-none;
+  @apply transition focus:outline-none hover:brightness-95 focus:ring-2 focus:ring-blue-400;
+}
+
+a {
+  @apply transition focus:outline-none focus:ring-2 focus:ring-blue-400;
 }

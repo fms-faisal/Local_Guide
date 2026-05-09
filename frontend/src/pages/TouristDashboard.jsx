@@ -1,4 +1,5 @@
 import Navbar from '../components/Navbar';
+import DashboardSidebar from '../components/DashboardSidebar';
 import { useEffect, useState } from 'react';
 import api from '../services/api';
 import { useAuth } from '../context/AuthContext';
@@ -12,9 +13,11 @@ const TouristDashboard = () => {
   }, []);
 
   return (
-    <>
-      <Navbar />
-      <main className="max-w-3xl mx-auto py-8 px-2 sm:px-4">
+    <div className="flex">
+      <DashboardSidebar />
+      <div className="flex-1">
+        <Navbar />
+        <main className="max-w-3xl mx-auto py-8 px-2 sm:px-4">
         <h1 className="text-2xl font-bold mb-4 text-center">My Bookings</h1>
         <div className="space-y-4">
           {bookings.map(b => (
@@ -26,8 +29,9 @@ const TouristDashboard = () => {
             </div>
           ))}
         </div>
-      </main>
-    </>
+        </main>
+      </div>
+    </div>
   );
 };
 
