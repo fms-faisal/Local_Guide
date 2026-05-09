@@ -3,18 +3,22 @@ import { useEffect, useState } from 'react';
 import api from '../services/api';
 import Navbar from '../components/Navbar';
 import TourCard from '../components/TourCard';
+import Spinner from '../components/Spinner';
 
 const TourListings = () => {
   const [tours, setTours] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [filters, setFilters] = useState({ location: '', price: '', language: '' });
 
   const fetchTours = async () => {
+    setLoading(true);
     const params = {};
     if (filters.location) params.location = filters.location;
     if (filters.price) params.price = filters.price;
     if (filters.language) params.language = filters.language;
     const res = await api.get('/tours', { params });
     setTours(res.data);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -42,9 +46,13 @@ const TourListings = () => {
           <input name="price" type="number" placeholder="Max Price" aria-label="Max Price" value={filters.price} onChange={handleChange} className="border p-2 rounded w-full sm:w-32 focus:outline-blue-400" />
           <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded focus:ring-2 focus:ring-blue-400">Filter</button>
         </form>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {tours.map(tour => <TourCard key={tour._id} tour={tour} />)}
-        </div>
+        {loading ? (
+          <Spinner />
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {tours.map(tour => <TourCard key={tour._id} tour={tour} />)}
+          </div>
+        )}
       </main>
     </>
   );
