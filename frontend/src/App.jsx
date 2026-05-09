@@ -18,21 +18,22 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/tours" element={<TourListings />} />
+          <Route path="/dashboard/tourist" element={
           <Route path="/dashboard/tourist" element={
             <ProtectedRoute roles={['Tourist']}>
               <TouristDashboard />
             </ProtectedRoute>
+          <Route path="/dashboard/guide" element={
           } />
           <Route path="/dashboard/guide" element={
             <ProtectedRoute roles={['Guide']}>
               <GuideDashboard />
+          <Route path="/dashboard/admin" element={
             </ProtectedRoute>
           } />
           <Route path="/dashboard/admin" element={
             <ProtectedRoute roles={['Admin']}>
+          <Route path="/profile" element={<Profile />} />
               <AdminDashboard />
             </ProtectedRoute>
           } />
