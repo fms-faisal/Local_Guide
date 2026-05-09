@@ -15,8 +15,8 @@ const AdminDashboard = () => {
   return (
     <>
       <Navbar />
-      <div className="max-w-4xl mx-auto py-8 px-4">
-        <h1 className="text-2xl font-bold mb-4">Admin Dashboard</h1>
+      <main className="max-w-4xl mx-auto py-8 px-2 sm:px-4">
+        <h1 className="text-2xl font-bold mb-4 text-center">Admin Dashboard</h1>
         <div className="bg-white p-4 rounded shadow mb-6">
           <h2 className="font-semibold mb-2">Platform Statistics</h2>
           <div>Users: {stats.users || 0}</div>
@@ -26,13 +26,13 @@ const AdminDashboard = () => {
         <h2 className="font-semibold mb-2">All Users</h2>
         <div className="space-y-2">
           {users.map(u => (
-            <div key={u._id} className="border rounded p-2 bg-white shadow flex justify-between items-center">
+            <div key={u._id} className="border rounded p-2 bg-white shadow flex flex-col md:flex-row justify-between items-center gap-2">
               <div>{u.name} ({u.role})</div>
               <div className="text-xs text-gray-500">{u.email}</div>
             </div>
           ))}
         </div>
-      </div>
+      </main>
     </>
   );
 };
