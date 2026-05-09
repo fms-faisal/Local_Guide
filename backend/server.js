@@ -17,6 +17,7 @@ connectDB();
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/tours', require('./routes/tours'));
 app.use('/api/bookings', require('./routes/bookings'));
+app.use('/api/reviews', require('./routes/reviews'));
 app.use('/api', require('./routes/admin'));
 
 // Error handler
