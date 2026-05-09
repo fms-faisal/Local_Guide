@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useTheme } from '../context/ThemeContext';
 
 const Navbar = () => {
   const { user, logout } = useAuth();
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <nav className="bg-white shadow px-4 py-2 flex flex-col sm:flex-row justify-between items-center gap-2" aria-label="Main navigation">
@@ -19,6 +21,13 @@ const Navbar = () => {
         {user && user.role === 'Guide' && <Link to="/dashboard/guide" className="hover:underline focus:outline-blue-400" tabIndex={0}>Guide Dashboard</Link>}
         {user && user.role === 'Admin' && <Link to="/dashboard/admin" className="hover:underline focus:outline-blue-400" tabIndex={0}>Admin Dashboard</Link>}
         {user && <button onClick={logout} className="ml-2 text-red-500 focus:outline-blue-400" tabIndex={0}>Logout</button>}
+        <button
+          onClick={toggleTheme}
+          className="ml-2 px-2 py-1 rounded border border-gray-300 bg-gray-100 dark:bg-gray-800 dark:text-white focus:outline-blue-400"
+          aria-label="Toggle theme"
+        >
+          {theme === 'dark' ? '🌙' : '☀️'}
+        </button>
       </div>
     </nav>
   );
