@@ -34,18 +34,18 @@ const TourListings = () => {
   return (
     <>
       <Navbar />
-      <div className="max-w-5xl mx-auto py-8 px-4">
-        <h1 className="text-2xl font-bold mb-4">Available Tours</h1>
-        <form className="flex gap-2 mb-6" onSubmit={handleFilter}>
-          <input name="location" placeholder="Location" value={filters.location} onChange={handleChange} className="border p-2 rounded" />
-          <input name="language" placeholder="Language" value={filters.language} onChange={handleChange} className="border p-2 rounded" />
-          <input name="price" type="number" placeholder="Max Price" value={filters.price} onChange={handleChange} className="border p-2 rounded w-32" />
-          <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">Filter</button>
+      <main className="max-w-5xl mx-auto py-8 px-2 sm:px-4">
+        <h1 className="text-2xl font-bold mb-4 text-center">Available Tours</h1>
+        <form className="flex flex-col sm:flex-row gap-2 mb-6" onSubmit={handleFilter} aria-label="Filter tours">
+          <input name="location" placeholder="Location" aria-label="Location" value={filters.location} onChange={handleChange} className="border p-2 rounded focus:outline-blue-400" />
+          <input name="language" placeholder="Language" aria-label="Language" value={filters.language} onChange={handleChange} className="border p-2 rounded focus:outline-blue-400" />
+          <input name="price" type="number" placeholder="Max Price" aria-label="Max Price" value={filters.price} onChange={handleChange} className="border p-2 rounded w-full sm:w-32 focus:outline-blue-400" />
+          <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded focus:ring-2 focus:ring-blue-400">Filter</button>
         </form>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {tours.map(tour => <TourCard key={tour._id} tour={tour} />)}
         </div>
-      </div>
+      </main>
     </>
   );
 };
