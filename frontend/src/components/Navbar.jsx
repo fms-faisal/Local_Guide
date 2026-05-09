@@ -5,20 +5,20 @@ const Navbar = () => {
   const { user, logout } = useAuth();
 
   return (
-    <nav className="bg-white shadow px-4 py-2 flex justify-between items-center">
+    <nav className="bg-white shadow px-4 py-2 flex flex-col sm:flex-row justify-between items-center gap-2" aria-label="Main navigation">
       <div className="font-bold text-xl">
-        <Link to="/">Local Guide Platform</Link>
+        <Link to="/" tabIndex={0}>Local Guide Platform</Link>
       </div>
-      <div className="flex gap-4 items-center">
-        <Link to="/tours" className="hover:underline">Tours</Link>
+      <div className="flex flex-wrap gap-2 sm:gap-4 items-center justify-center">
+        <Link to="/tours" className="hover:underline focus:outline-blue-400" tabIndex={0}>Tours</Link>
         {!user && <>
-          <Link to="/login" className="hover:underline">Login</Link>
-          <Link to="/register" className="hover:underline">Register</Link>
+          <Link to="/login" className="hover:underline focus:outline-blue-400" tabIndex={0}>Login</Link>
+          <Link to="/register" className="hover:underline focus:outline-blue-400" tabIndex={0}>Register</Link>
         </>}
-        {user && user.role === 'Tourist' && <Link to="/dashboard/tourist" className="hover:underline">My Dashboard</Link>}
-        {user && user.role === 'Guide' && <Link to="/dashboard/guide" className="hover:underline">Guide Dashboard</Link>}
-        {user && user.role === 'Admin' && <Link to="/dashboard/admin" className="hover:underline">Admin Dashboard</Link>}
-        {user && <button onClick={logout} className="ml-2 text-red-500">Logout</button>}
+        {user && user.role === 'Tourist' && <Link to="/dashboard/tourist" className="hover:underline focus:outline-blue-400" tabIndex={0}>My Dashboard</Link>}
+        {user && user.role === 'Guide' && <Link to="/dashboard/guide" className="hover:underline focus:outline-blue-400" tabIndex={0}>Guide Dashboard</Link>}
+        {user && user.role === 'Admin' && <Link to="/dashboard/admin" className="hover:underline focus:outline-blue-400" tabIndex={0}>Admin Dashboard</Link>}
+        {user && <button onClick={logout} className="ml-2 text-red-500 focus:outline-blue-400" tabIndex={0}>Logout</button>}
       </div>
     </nav>
   );
