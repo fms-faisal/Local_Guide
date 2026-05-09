@@ -1,6 +1,6 @@
 import { CSSTransition, SwitchTransition } from 'react-transition-group';
 import { useLocation } from 'react-router-dom';
-import './page-transitions.css';
+import './styles/page-transitions.css';
 
 const PageTransition = ({ children }) => {
   const location = useLocation();
