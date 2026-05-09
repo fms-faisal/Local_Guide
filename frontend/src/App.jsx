@@ -1,4 +1,6 @@
+
 import NotFound from './pages/NotFound';
+import TourDetails from './pages/TourDetails';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
@@ -27,7 +29,6 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/tours" element={<TourListings />} />
             <Route path="/tours/:id" element={<TourDetails />} />
-            import TourDetails from './pages/TourDetails';
             <Route path="/dashboard/tourist" element={
               <ProtectedRoute roles={["Tourist"]}>
                 <TouristDashboard />
