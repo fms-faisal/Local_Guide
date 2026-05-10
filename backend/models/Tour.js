@@ -10,6 +10,8 @@ const tourSchema = new mongoose.Schema({
   language: { type: String, required: true },
   price: { type: Number, required: true },
   availabilityDates: [{ type: Date, required: true }],
+  image: { type: String },
+  rating: { type: Number, default: 4.8 },
   createdAt: { type: Date, default: Date.now },
 });
 

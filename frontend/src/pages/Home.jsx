@@ -6,8 +6,8 @@ const Home = () => (
     <Navbar />
 
     <header className="relative overflow-hidden bg-slate-950">
-      <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80')] bg-cover bg-center opacity-70"></div>
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-950/90 via-slate-900/70 to-slate-900/95" />
+      <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1526481280694-3d0f049d96fd?auto=format&fit=crop&w=1600&q=80')] bg-cover bg-center opacity-80"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-950/95 via-slate-900/80 to-slate-900/95" />
       <div className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-32 lg:px-8">
         <div className="max-w-3xl text-center mx-auto">
           <p className="text-sm uppercase tracking-[0.35em] text-emerald-300 mb-4">Authentic local experiences</p>
@@ -45,15 +45,23 @@ const Home = () => (
           </div>
 
           <div className="grid gap-6 sm:grid-cols-2 lg:col-span-2">
-            <Link to="/tours?category=Adventure" className="group block overflow-hidden rounded-[2rem] bg-gradient-to-br from-blue-600 to-indigo-700 p-8 text-white shadow-xl transition hover:-translate-y-1 hover:shadow-2xl">
-              <p className="text-sm uppercase tracking-[0.35em] text-blue-100">Adventure</p>
-              <h3 className="mt-4 text-2xl font-bold">Active outdoor journeys</h3>
-              <p className="mt-3 text-sm leading-relaxed text-blue-100/90">Hike, bike, and explore with expert local guides.</p>
+            <Link to="/tours?category=Adventure" className="group relative overflow-hidden rounded-[2rem] shadow-xl transition hover:-translate-y-1 hover:shadow-2xl">
+              <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80')] bg-cover bg-center" />
+              <div className="absolute inset-0 bg-slate-950/45" />
+              <div className="relative p-8 text-white">
+                <p className="text-sm uppercase tracking-[0.35em] text-blue-100">Adventure</p>
+                <h3 className="mt-4 text-2xl font-bold">Coastal and hill adventures</h3>
+                <p className="mt-3 text-sm leading-relaxed text-blue-100/90">Explore Bangladesh’s hidden beaches, forests, and hill country.</p>
+              </div>
             </Link>
-            <Link to="/tours?category=Culture" className="group block overflow-hidden rounded-[2rem] bg-gradient-to-br from-slate-100 to-slate-200 p-8 shadow-xl transition hover:-translate-y-1 hover:shadow-2xl">
-              <p className="text-sm uppercase tracking-[0.35em] text-slate-500">Culture</p>
-              <h3 className="mt-4 text-2xl font-bold text-slate-900">Immersive local stories</h3>
-              <p className="mt-3 text-sm leading-relaxed text-slate-600">Discover food tours, history walks, and creative neighborhoods.</p>
+            <Link to="/tours?category=Culture" className="group relative overflow-hidden rounded-[2rem] shadow-xl transition hover:-translate-y-1 hover:shadow-2xl">
+              <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1485906077845-9dbbccd4b06d?auto=format&fit=crop&w=1200&q=80')] bg-cover bg-center" />
+              <div className="absolute inset-0 bg-slate-950/45" />
+              <div className="relative p-8 text-white">
+                <p className="text-sm uppercase tracking-[0.35em] text-blue-100">Culture</p>
+                <h3 className="mt-4 text-2xl font-bold">Historic city stories</h3>
+                <p className="mt-3 text-sm leading-relaxed text-blue-100/90">Walk through heritage sites, local markets, and timeless traditions.</p>
+              </div>
             </Link>
           </div>
         </div>
