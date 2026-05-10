@@ -1,16 +1,46 @@
+// GET /api/tours/:id
+exports.getTourById = async (req, res) => {
+  try {
+    const tour = await Tour.findById(req.params.id).populate('guideId', 'name profileDetails');
+    if (!tour) return res.status(404).json({ message: 'Tour not found' });
+    res.json(tour);
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to fetch tour', error: err.message });
+  }
+};
 // backend/controllers/tourController.js
 const Tour = require('../models/Tour');
+const Booking = require('../models/Booking');
+const Review = require('../models/Review');
 
 // GET /api/tours (with search/filter)
 exports.getTours = async (req, res) => {
   try {
-    const { location, category, price, language } = req.query;
+    const { location, category, minPrice, maxPrice, language, rating, date, page = 1, limit = 6 } = req.query;
     let filter = {};
     if (location) filter.location = location;
     if (category) filter.category = category;
     if (language) filter.language = language;
-    if (price) filter.price = { $lte: Number(price) };
-    const tours = await Tour.find(filter).populate('guideId', 'name profileDetails');
+    if (minPrice || maxPrice) {
+      filter.price = {};
+      if (minPrice) filter.price.$gte = Number(minPrice);
+      if (maxPrice) filter.price.$lte = Number(maxPrice);
+    }
+    if (date) {
+      const requestedDate = new Date(date);
+      const startOfDay = new Date(requestedDate);
+      startOfDay.setHours(0, 0, 0, 0);
+      const endOfDay = new Date(requestedDate);
+      endOfDay.setHours(23, 59, 59, 999);
+      filter.availabilityDates = { $elemMatch: { $gte: startOfDay, $lte: endOfDay } };
+    }
+    const skip = (parseInt(page) - 1) * parseInt(limit);
+    const total = await Tour.countDocuments(filter);
+    const tours = await Tour.find(filter)
+      .populate('guideId', 'name profileDetails')
+      .skip(skip)
+      .limit(parseInt(limit));
+    res.set('X-Total-Count', total);
     res.json(tours);
   } catch (err) {
     res.status(500).json({ message: 'Failed to fetch tours', error: err.message });
@@ -63,6 +93,8 @@ exports.deleteTour = async (req, res) => {
     if (tour.guideId.toString() !== req.user.id && req.user.role !== 'Admin') {
       return res.status(403).json({ message: 'Not authorized' });
     }
+    await Booking.deleteMany({ tourId: tour._id });
+    await Review.deleteMany({ tourId: tour._id });
     await tour.deleteOne();
     res.json({ message: 'Tour deleted' });
   } catch (err) {

@@ -6,6 +6,7 @@ const authMiddleware = require('../middleware/authMiddleware');
 const roleMiddleware = require('../middleware/roleMiddleware');
 
 router.get('/', tourController.getTours);
+router.get('/:id', tourController.getTourById);
 router.post('/', authMiddleware, roleMiddleware('Guide'), tourController.createTour);
 router.put('/:id', authMiddleware, roleMiddleware(['Guide', 'Admin']), tourController.updateTour);
 router.delete('/:id', authMiddleware, roleMiddleware(['Guide', 'Admin']), tourController.deleteTour);

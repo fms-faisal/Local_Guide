@@ -11,6 +11,7 @@ const bookingSchema = new mongoose.Schema({
     required: true,
   },
   paymentStatus: { type: String, default: 'Pending' },
+  date: { type: Date, required: true },
   bookingDate: { type: Date, default: Date.now },
 });
 

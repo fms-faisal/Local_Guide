@@ -5,15 +5,41 @@ const Tour = require('../models/Tour');
 // POST /api/bookings (Tourist only)
 exports.createBooking = async (req, res) => {
   try {
-    const { tourId } = req.body;
-    if (!tourId) return res.status(400).json({ message: 'tourId is required' });
+    const { tourId, date } = req.body;
+    if (!tourId || !date) return res.status(400).json({ message: 'tourId and date are required' });
+    const requestedDate = new Date(date);
+    if (isNaN(requestedDate.getTime())) return res.status(400).json({ message: 'Invalid date format' });
     const tour = await Tour.findById(tourId);
     if (!tour) return res.status(404).json({ message: 'Tour not found' });
+    const matchesAvailability = tour.availabilityDates.some((availableDate) => {
+      const a = new Date(availableDate).toISOString().slice(0, 10);
+      const r = requestedDate.toISOString().slice(0, 10);
+      return a === r;
+    });
+    if (!matchesAvailability) {
+      return res.status(400).json({ message: 'Selected date is not available for this tour' });
+    }
+    const startOfDay = new Date(requestedDate);
+    startOfDay.setHours(0, 0, 0, 0);
+    const endOfDay = new Date(requestedDate);
+    endOfDay.setHours(23, 59, 59, 999);
+    const existingApproved = await Booking.findOne({
+      tourId,
+      date: {
+        $gte: startOfDay,
+        $lte: endOfDay,
+      },
+      status: 'Approved',
+    });
+    if (existingApproved) {
+      return res.status(409).json({ message: 'Tour already booked for selected date' });
+    }
     const booking = new Booking({
       tourId,
       touristId: req.user.id,
       status: 'Pending',
       paymentStatus: 'Pending',
+      date: requestedDate,
     });
     await booking.save();
     res.status(201).json(booking);

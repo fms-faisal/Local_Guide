@@ -4,6 +4,8 @@ import { useParams } from 'react-router-dom';
 import api from '../services/api';
 import Navbar from '../components/Navbar';
 import Spinner from '../components/Spinner';
+import Chat from '../components/Chat';
+import BookingCalendar from '../components/BookingCalendar';
 
 const TourDetails = () => {
   const { id } = useParams();
@@ -68,6 +70,16 @@ const TourDetails = () => {
         <div className="mb-2">Language: {tour.language}</div>
         <div className="mb-2">Price: ${tour.price}</div>
         <div className="mb-2">Guide: {tour.guideId?.name}</div>
+        <section className="mt-6">
+          <h2 className="text-xl font-semibold mb-2">Book a Date</h2>
+          <BookingCalendar availableDates={(tour.availabilityDates || []).map(d => d.split('T')[0])} onDateSelect={(date) => {}} />
+        </section>
+        {user && user.role === 'Tourist' && tour.guideId?._id && (
+          <section className="mt-8">
+            <h2 className="text-xl font-semibold mb-2">Chat with Guide</h2>
+            <Chat otherUserId={tour.guideId._id} tourId={id} />
+          </section>
+        )}
         <section className="mt-6">
           <h2 className="text-xl font-semibold mb-2">Reviews</h2>
           {user && user.role === 'Tourist' && (

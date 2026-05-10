@@ -7,6 +7,7 @@ const roleMiddleware = require('../middleware/roleMiddleware');
 
 // Only Admin can access these routes
 router.get('/users', authMiddleware, roleMiddleware('Admin'), adminController.getAllUsers);
+router.delete('/users/:id', authMiddleware, roleMiddleware('Admin'), adminController.deleteUser);
 router.get('/stats', authMiddleware, roleMiddleware('Admin'), adminController.getStats);
 
 module.exports = router;
