@@ -28,14 +28,44 @@ const Login = () => {
   return (
     <>
       <Navbar />
-      <main className="max-w-md mx-auto mt-10 p-4 sm:p-6 bg-white rounded shadow">
-        <h2 className="text-xl font-bold mb-4 text-center">Login</h2>
-        {error && <div className="text-red-500 mb-2" role="alert">{error}</div>}
-        <form onSubmit={handleSubmit} className="flex flex-col gap-3" aria-label="Login form">
-          <input type="email" placeholder="Email" aria-label="Email" value={email} onChange={e => setEmail(e.target.value)} className="border p-2 rounded focus:outline-blue-400" required />
-          <input type="password" placeholder="Password" aria-label="Password" value={password} onChange={e => setPassword(e.target.value)} className="border p-2 rounded focus:outline-blue-400" required />
-          <button type="submit" className="bg-blue-600 text-white py-2 rounded focus:ring-2 focus:ring-blue-400">Login</button>
-        </form>
+      <main className="min-h-screen bg-gray-50 py-16 px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-lg bg-white border border-gray-200 shadow-sm rounded-[2rem] p-8 sm:p-10">
+          <div className="text-center mb-8">
+            <p className="text-sm uppercase tracking-[0.35em] text-blue-600 mb-3">Welcome back</p>
+            <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900">Login to your account</h1>
+            <p className="text-gray-600 mt-3">Access your dashboard, manage bookings, and discover new experiences.</p>
+          </div>
+          {error && <div className="rounded-xl bg-red-50 border border-red-200 text-red-700 px-4 py-3 mb-6" role="alert">{error}</div>}
+          <form onSubmit={handleSubmit} className="space-y-4" aria-label="Login form">
+            <label className="block">
+              <span className="text-gray-700 font-medium">Email</span>
+              <input
+                type="email"
+                placeholder="you@example.com"
+                aria-label="Email"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                className="mt-2 w-full rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 text-gray-900 outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20"
+                required
+              />
+            </label>
+            <label className="block">
+              <span className="text-gray-700 font-medium">Password</span>
+              <input
+                type="password"
+                placeholder="••••••••"
+                aria-label="Password"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+                className="mt-2 w-full rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 text-gray-900 outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20"
+                required
+              />
+            </label>
+            <button type="submit" className="w-full rounded-2xl bg-blue-600 px-6 py-3 text-white font-semibold shadow-sm transition hover:bg-blue-700 focus:ring-4 focus:ring-blue-600/30">
+              Login
+            </button>
+          </form>
+        </div>
       </main>
     </>
   );

@@ -23,15 +23,58 @@ const Profile = () => {
   };
 
   return (
-    <main className="max-w-md mx-auto mt-10 p-4 sm:p-6 bg-white rounded shadow">
-      <h2 className="text-xl font-bold mb-4 text-center">Profile</h2>
-      {msg && <div className="text-green-600 mb-2" role="alert">{msg}</div>}
-      <form onSubmit={handleSubmit} className="flex flex-col gap-3" aria-label="Profile form">
-        <input name="name" placeholder="Name" aria-label="Name" value={form.name} onChange={handleChange} className="border p-2 rounded focus:outline-blue-400" required />
-        <input name="bio" placeholder="Bio" aria-label="Bio" value={form.bio} onChange={handleChange} className="border p-2 rounded focus:outline-blue-400" />
-        <input name="location" placeholder="Location" aria-label="Location" value={form.location} onChange={handleChange} className="border p-2 rounded focus:outline-blue-400" />
-        <button type="submit" className="bg-blue-600 text-white py-2 rounded focus:ring-2 focus:ring-blue-400">Save</button>
-      </form>
+    <main className="min-h-screen bg-gray-50 py-16 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-3xl bg-white border border-gray-200 shadow-sm rounded-[2rem] p-8 sm:p-10">
+        <div className="mb-8 text-center">
+          <p className="text-sm uppercase tracking-[0.35em] text-blue-600 mb-3">Your profile</p>
+          <h1 className="text-3xl font-extrabold text-gray-900">Manage your account</h1>
+          <p className="text-gray-600 mt-3">Keep your profile up to date so guides and travelers can connect with you easily.</p>
+        </div>
+        {msg && <div className="rounded-xl bg-green-50 border border-green-200 text-green-700 px-4 py-3 mb-6" role="alert">{msg}</div>}
+        <form onSubmit={handleSubmit} className="space-y-4" aria-label="Profile form">
+          <label className="block">
+            <span className="text-gray-700 font-medium">Name</span>
+            <input
+              name="name"
+              placeholder="Full name"
+              aria-label="Name"
+              value={form.name}
+              onChange={handleChange}
+              className="mt-2 w-full rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 text-gray-900 outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20"
+              required
+            />
+          </label>
+          <label className="block">
+            <span className="text-gray-700 font-medium">Bio</span>
+            <textarea
+              name="bio"
+              placeholder="Tell us something about yourself"
+              aria-label="Bio"
+              value={form.bio}
+              onChange={handleChange}
+              rows={3}
+              className="mt-2 w-full rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 text-gray-900 outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20"
+            />
+          </label>
+          <label className="block">
+            <span className="text-gray-700 font-medium">Location</span>
+            <input
+              name="location"
+              placeholder="City or region"
+              aria-label="Location"
+              value={form.location}
+              onChange={handleChange}
+              className="mt-2 w-full rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 text-gray-900 outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20"
+            />
+          </label>
+          <button
+            type="submit"
+            className="w-full rounded-2xl bg-blue-600 px-6 py-3 text-white font-semibold shadow-sm transition hover:bg-blue-700 hover:shadow-md focus:ring-4 focus:ring-blue-600/30"
+          >
+            Save Profile
+          </button>
+        </form>
+      </div>
     </main>
   );
 };
