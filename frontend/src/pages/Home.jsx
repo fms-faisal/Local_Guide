@@ -2,92 +2,105 @@ import Navbar from '../components/Navbar';
 import { Link } from 'react-router-dom';
 
 const Home = () => (
-  <div className="min-h-screen bg-gray-50">
+  <div className="min-h-screen bg-slate-50 text-slate-900">
     <Navbar />
 
-    {/* HERO SECTION */}
-    <section className="relative bg-gradient-to-br from-blue-900 to-indigo-800 text-white py-24 sm:py-32 px-4 sm:px-6 lg:px-8 overflow-hidden">
-      <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] mix-blend-overlay"></div>
-      <div className="relative max-w-4xl mx-auto text-center">
-        <p className="text-sm text-blue-200 uppercase tracking-[0.35em] mb-4">Authentic local experiences</p>
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-6">
-          Find Your Perfect <span className="text-blue-300">Local Guide</span>
-        </h1>
-        <p className="text-lg sm:text-xl text-blue-100 mb-10 max-w-2xl mx-auto">
-          Discover hidden gems, authentic culture, and unforgettable adventures with verified local experts in your next destination.
-        </p>
+    <header className="relative overflow-hidden bg-slate-950">
+      <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80')] bg-cover bg-center opacity-70"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-950/90 via-slate-900/70 to-slate-900/95" />
+      <div className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-32 lg:px-8">
+        <div className="max-w-3xl text-center mx-auto">
+          <p className="text-sm uppercase tracking-[0.35em] text-emerald-300 mb-4">Authentic local experiences</p>
+          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl text-white">Discover unforgettable tours guided by locals.</h1>
+          <p className="mt-6 text-lg leading-relaxed text-slate-100 sm:text-xl">Find premium guided adventures, immersive cultural tours, and one-of-a-kind local experiences across the world.</p>
+        </div>
 
-        <div className="bg-white p-2 rounded-2xl shadow-xl flex flex-col sm:flex-row gap-2 max-w-2xl mx-auto focus-within:ring-4 focus-within:ring-blue-500/30 transition-all">
-          <form className="flex-1 flex flex-col sm:flex-row gap-2" aria-label="Search tours by location">
-            <div className="relative flex-1">
-              <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-              <input 
-                type="text" 
-                placeholder="Where do you want to go?" 
-                aria-label="Search location" 
-                className="w-full pl-12 pr-4 py-4 rounded-xl border-none focus:ring-0 text-gray-900 placeholder-gray-500 bg-transparent text-lg outline-none" 
-              />
-            </div>
-            <button 
-              type="submit" 
-              className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-4 rounded-xl transition-colors duration-200"
-            >
-              Search
-            </button>
+        <div className="relative mt-16 rounded-[2rem] border border-white/10 bg-white/95 px-5 py-6 shadow-2xl backdrop-blur-xl sm:px-6 lg:px-8 lg:max-w-5xl lg:mx-auto">
+          <form className="grid gap-4 sm:grid-cols-[1.4fr_1fr_1fr_0.9fr]" aria-label="Search tours">
+            <label className="relative block">
+              <span className="sr-only">Destination</span>
+              <input type="text" placeholder="Destination" className="w-full rounded-3xl border border-slate-200 bg-slate-50 px-5 py-4 text-slate-900 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20" />
+            </label>
+            <label className="relative block">
+              <span className="sr-only">Date</span>
+              <input type="date" className="w-full rounded-3xl border border-slate-200 bg-slate-50 px-5 py-4 text-slate-900 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20" />
+            </label>
+            <label className="relative block">
+              <span className="sr-only">Guests</span>
+              <input type="number" min="1" placeholder="Guests" className="w-full rounded-3xl border border-slate-200 bg-slate-50 px-5 py-4 text-slate-900 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20" />
+            </label>
+            <button type="submit" className="rounded-3xl bg-blue-600 px-6 py-4 text-base font-semibold text-white shadow-sm transition hover:bg-blue-700 focus:ring-4 focus:ring-blue-500/25">Search</button>
           </form>
         </div>
       </div>
-    </section>
+    </header>
 
-    {/* BODY SECTION: Categories */}
-    <main className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
-      <div className="text-center mb-12">
-        <h2 className="text-3xl font-bold text-gray-900 mb-4">Explore by Category</h2>
-        <p className="text-gray-600 max-w-2xl mx-auto">Whether you're seeking adrenaline, history, or peaceful landscapes, we have the perfect experience for you.</p>
-      </div>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-        <Link 
-          to="/tours?category=Adventure" 
-          className="group relative h-64 rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 focus:outline-blue-600 focus:ring-4 focus:ring-blue-600/50"
-          tabIndex={0}
-        >
-          <div className="absolute inset-0 bg-blue-600/10 group-hover:bg-blue-600/20 transition-colors z-10"></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent z-20"></div>
-          <div className="absolute bottom-6 left-6 z-30">
-            <h3 className="text-2xl font-bold text-white mb-1 group-hover:-translate-y-1 transition-transform">Adventure</h3>
-            <p className="text-blue-200 text-sm opacity-0 group-hover:opacity-100 transition-opacity">Thrilling outdoor experiences &rarr;</p>
+    <main className="space-y-20 py-16 px-4 sm:px-6 lg:px-8">
+      <section className="mx-auto max-w-7xl">
+        <div className="grid gap-8 lg:grid-cols-3">
+          <div className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm">
+            <p className="text-sm uppercase tracking-[0.35em] text-blue-600">Featured categories</p>
+            <h2 className="mt-3 text-3xl font-extrabold text-slate-900">Explore the best experiences</h2>
+            <p className="mt-4 text-slate-600 leading-relaxed">Search by interest and discover local-guided tours that match your travel style.</p>
           </div>
-        </Link>
 
-        <Link 
-          to="/tours?category=Culture" 
-          className="group relative h-64 rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 focus:outline-blue-600 focus:ring-4 focus:ring-blue-600/50"
-          tabIndex={0}
-        >
-          <div className="absolute inset-0 bg-indigo-600/10 group-hover:bg-indigo-600/20 transition-colors z-10"></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent z-20"></div>
-          <div className="absolute bottom-6 left-6 z-30">
-            <h3 className="text-2xl font-bold text-white mb-1 group-hover:-translate-y-1 transition-transform">Culture</h3>
-            <p className="text-indigo-200 text-sm opacity-0 group-hover:opacity-100 transition-opacity">History, food, and traditions &rarr;</p>
+          <div className="grid gap-6 sm:grid-cols-2 lg:col-span-2">
+            <Link to="/tours?category=Adventure" className="group block overflow-hidden rounded-[2rem] bg-gradient-to-br from-blue-600 to-indigo-700 p-8 text-white shadow-xl transition hover:-translate-y-1 hover:shadow-2xl">
+              <p className="text-sm uppercase tracking-[0.35em] text-blue-100">Adventure</p>
+              <h3 className="mt-4 text-2xl font-bold">Active outdoor journeys</h3>
+              <p className="mt-3 text-sm leading-relaxed text-blue-100/90">Hike, bike, and explore with expert local guides.</p>
+            </Link>
+            <Link to="/tours?category=Culture" className="group block overflow-hidden rounded-[2rem] bg-gradient-to-br from-slate-100 to-slate-200 p-8 shadow-xl transition hover:-translate-y-1 hover:shadow-2xl">
+              <p className="text-sm uppercase tracking-[0.35em] text-slate-500">Culture</p>
+              <h3 className="mt-4 text-2xl font-bold text-slate-900">Immersive local stories</h3>
+              <p className="mt-3 text-sm leading-relaxed text-slate-600">Discover food tours, history walks, and creative neighborhoods.</p>
+            </Link>
           </div>
-        </Link>
+        </div>
+      </section>
 
-        <Link 
-          to="/tours?category=Nature" 
-          className="group relative h-64 rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 focus:outline-blue-600 focus:ring-4 focus:ring-blue-600/50"
-          tabIndex={0}
-        >
-          <div className="absolute inset-0 bg-emerald-600/10 group-hover:bg-emerald-600/20 transition-colors z-10"></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent z-20"></div>
-          <div className="absolute bottom-6 left-6 z-30">
-            <h3 className="text-2xl font-bold text-white mb-1 group-hover:-translate-y-1 transition-transform">Nature</h3>
-            <p className="text-emerald-200 text-sm opacity-0 group-hover:opacity-100 transition-opacity">Wildlife and scenic landscapes &rarr;</p>
-          </div>
-        </Link>
-      </div>
+      <section className="mx-auto max-w-7xl">
+        <div className="mb-10 text-center">
+          <p className="text-sm uppercase tracking-[0.35em] text-blue-600">Top rated experiences</p>
+          <h2 className="mt-3 text-3xl font-extrabold text-slate-900">Featured guides & tours</h2>
+          <p className="mt-4 text-slate-600 max-w-2xl mx-auto leading-relaxed">Premium local journeys designed for unforgettable moments.</p>
+        </div>
+        <div className="grid gap-6 lg:grid-cols-3">
+          {[
+            { title: 'Sunrise city walk', subtitle: 'Local history & hidden gems', price: 89 },
+            { title: 'Culinary market tour', subtitle: 'Taste authentic flavors', price: 74 },
+            { title: 'Coastal kayaking trip', subtitle: 'Ocean adventure with a guide', price: 129 },
+          ].map((item) => (
+            <article key={item.title} className="group overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
+              <div className="mb-6 h-48 rounded-[1.5rem] bg-gradient-to-br from-blue-600 to-indigo-700" />
+              <div>
+                <p className="text-sm uppercase tracking-[0.35em] text-blue-600">{item.title}</p>
+                <h3 className="mt-4 text-2xl font-semibold text-slate-900">{item.subtitle}</h3>
+                <p className="mt-4 text-slate-600">Book this premium experience with verified local guidance and small group support.</p>
+              </div>
+              <div className="mt-6 flex items-center justify-between text-slate-900">
+                <span className="text-lg font-semibold">${item.price}</span>
+                <span className="rounded-full bg-emerald-500/10 px-3 py-1 text-sm font-medium text-emerald-700">Top rated</span>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl">
+        <div className="grid gap-6 lg:grid-cols-3">
+          {[
+            { label: 'Verified Guides', description: 'Trusted local experts with real reviews.' },
+            { label: 'Flexible bookings', description: 'Easy scheduling and transparent pricing.' },
+            { label: 'Premium support', description: '24/7 customer service for peace of mind.' },
+          ].map((item) => (
+            <div key={item.label} className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm hover:shadow-xl transition-all duration-300">
+              <p className="text-sm uppercase tracking-[0.35em] text-blue-600">{item.label}</p>
+              <p className="mt-4 text-xl font-semibold text-slate-900">{item.description}</p>
+            </div>
+          ))}
+        </div>
+      </section>
     </main>
   </div>
 );

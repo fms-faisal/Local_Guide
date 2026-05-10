@@ -23,53 +23,53 @@ const Profile = () => {
   };
 
   return (
-    <main className="min-h-screen bg-gray-50 py-16 px-4 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-3xl bg-white border border-gray-200 shadow-sm rounded-[2rem] p-8 sm:p-10">
-        <div className="mb-8 text-center">
-          <p className="text-sm uppercase tracking-[0.35em] text-blue-600 mb-3">Your profile</p>
-          <h1 className="text-3xl font-extrabold text-gray-900">Manage your account</h1>
-          <p className="text-gray-600 mt-3">Keep your profile up to date so guides and travelers can connect with you easily.</p>
+    <main className="min-h-screen bg-slate-50 py-20 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-4xl rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm sm:p-10">
+        <div className="mb-10 text-center">
+          <p className="text-sm uppercase tracking-[0.35em] text-blue-600">Your profile</p>
+          <h1 className="mt-3 text-4xl font-extrabold text-slate-900">Manage your account</h1>
+          <p className="mt-4 text-slate-600">Keep your profile up to date so guides and travelers can connect with you easily.</p>
         </div>
-        {msg && <div className="rounded-xl bg-green-50 border border-green-200 text-green-700 px-4 py-3 mb-6" role="alert">{msg}</div>}
-        <form onSubmit={handleSubmit} className="space-y-4" aria-label="Profile form">
+        {msg && <div className="rounded-3xl border border-emerald-200 bg-emerald-50 px-5 py-4 text-sm text-emerald-700 mb-6" role="alert">{msg}</div>}
+        <form onSubmit={handleSubmit} className="space-y-5" aria-label="Profile form">
           <label className="block">
-            <span className="text-gray-700 font-medium">Name</span>
+            <span className="text-sm font-semibold text-slate-700">Name</span>
             <input
               name="name"
               placeholder="Full name"
               aria-label="Name"
               value={form.name}
               onChange={handleChange}
-              className="mt-2 w-full rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 text-gray-900 outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20"
+              className="mt-3 w-full rounded-3xl border border-slate-200 bg-slate-50 px-5 py-4 text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
               required
             />
           </label>
           <label className="block">
-            <span className="text-gray-700 font-medium">Bio</span>
+            <span className="text-sm font-semibold text-slate-700">Bio</span>
             <textarea
               name="bio"
               placeholder="Tell us something about yourself"
               aria-label="Bio"
               value={form.bio}
               onChange={handleChange}
-              rows={3}
-              className="mt-2 w-full rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 text-gray-900 outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20"
+              rows={4}
+              className="mt-3 w-full rounded-3xl border border-slate-200 bg-slate-50 px-5 py-4 text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
             />
           </label>
           <label className="block">
-            <span className="text-gray-700 font-medium">Location</span>
+            <span className="text-sm font-semibold text-slate-700">Location</span>
             <input
               name="location"
               placeholder="City or region"
               aria-label="Location"
               value={form.location}
               onChange={handleChange}
-              className="mt-2 w-full rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 text-gray-900 outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20"
+              className="mt-3 w-full rounded-3xl border border-slate-200 bg-slate-50 px-5 py-4 text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
             />
           </label>
           <button
             type="submit"
-            className="w-full rounded-2xl bg-blue-600 px-6 py-3 text-white font-semibold shadow-sm transition hover:bg-blue-700 hover:shadow-md focus:ring-4 focus:ring-blue-600/30"
+            className="w-full rounded-3xl bg-blue-600 px-6 py-4 text-base font-semibold text-white shadow-sm transition hover:bg-blue-700 focus:ring-4 focus:ring-blue-500/20"
           >
             Save Profile
           </button>
