@@ -28,18 +28,26 @@ exports.getTours = async (req, res) => {
     }
     if (date) {
       const requestedDate = new Date(date);
+      if (isNaN(requestedDate.getTime())) {
+        return res.status(400).json({ message: 'Invalid date filter' });
+      }
       const startOfDay = new Date(requestedDate);
       startOfDay.setHours(0, 0, 0, 0);
       const endOfDay = new Date(requestedDate);
       endOfDay.setHours(23, 59, 59, 999);
       filter.availabilityDates = { $elemMatch: { $gte: startOfDay, $lte: endOfDay } };
     }
-    const skip = (parseInt(page) - 1) * parseInt(limit);
+
+    const pageNumber = parseInt(page, 10);
+    const limitNumber = parseInt(limit, 10);
+    const validPage = Number.isInteger(pageNumber) && pageNumber > 0 ? pageNumber : 1;
+    const validLimit = Number.isInteger(limitNumber) && limitNumber > 0 ? limitNumber : 6;
+    const skip = (validPage - 1) * validLimit;
     const total = await Tour.countDocuments(filter);
     const tours = await Tour.find(filter)
       .populate('guideId', 'name profileDetails')
       .skip(skip)
-      .limit(parseInt(limit));
+      .limit(validLimit);
     res.set('X-Total-Count', total);
     res.json(tours);
   } catch (err) {

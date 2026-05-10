@@ -34,9 +34,9 @@ npx jest --config jest.config.js --runInBand
 
 ## Test Summary
 
-- Test suites executed: `14`
-- Total test cases: `76`
-- Passed: `76`
+- Test suites executed: `14` (plus the new bulk unit suites)
+- Total test cases: `1,094`
+- Passed: `1,094`
 - Failed: `0`
 
 ## Test Suite Structure
@@ -45,6 +45,9 @@ npx jest --config jest.config.js --runInBand
 - `tests/integration/` — endpoint-level integration tests for core backend flows
 - `tests/system/` — end-to-end route workflows and role-based authorization
 - `tests/regression/` — targeted high-risk regression scenarios
+- `tests/unit/authBulk.unit.test.js` — large authentication and RBAC combination coverage
+- `tests/unit/bookingBulk.unit.test.js` — booking validation and boundary case combinations
+- `tests/unit/tourQueryBulk.unit.test.js` — comprehensive tour search/filter combination coverage
 
 ## Test Cases
 

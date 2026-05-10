@@ -45,6 +45,8 @@ npm run test:regression
 npm run test:all
 ```
 
+Because the complete project test suite now includes 1,000+ cases, `npm run test:all` executes the test layers sequentially instead of all in a single large Jest process.
+
 ## Step-by-Step Plan
 1. Review existing backend features and identify critical modules.
 2. Create a formal SQA plan and document test structure.
