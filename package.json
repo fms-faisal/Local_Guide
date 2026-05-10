@@ -3,12 +3,16 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "jest --config local-guide-platform/jest.config.js --runInBand",
-    "test:unit": "jest --config local-guide-platform/jest.config.js tests/unit --runInBand",
+    "test": "npm run test:all",
+    "test:unit:core": "jest --config local-guide-platform/jest.config.js tests/unit/authController.unit.test.js tests/unit/bookingController.unit.test.js tests/unit/tourController.unit.test.js tests/unit/adminController.unit.test.js tests/unit/middleware.unit.test.js --runInBand",
+    "test:unit:auth": "jest --config local-guide-platform/jest.config.js tests/unit/authBulk.unit.test.js --runInBand",
+    "test:unit:booking": "jest --config local-guide-platform/jest.config.js tests/unit/bookingBulk.unit.test.js --runInBand",
+    "test:unit:tourquery": "jest --config local-guide-platform/jest.config.js tests/unit/tourQueryBulk.unit.test.js --runInBand",
+    "test:unit": "npm run test:unit:core && npm run test:unit:auth && npm run test:unit:booking && npm run test:unit:tourquery",
     "test:integration": "jest --config local-guide-platform/jest.config.js tests/integration --runInBand",
     "test:system": "jest --config local-guide-platform/jest.config.js tests/system --runInBand",
     "test:regression": "jest --config local-guide-platform/jest.config.js tests/regression --runInBand",
-    "test:all": "jest --config local-guide-platform/jest.config.js --runInBand"
+    "test:all": "npm run test:unit && npm run test:integration && npm run test:system && npm run test:regression"
   },
   "keywords": [],
   "author": "",
