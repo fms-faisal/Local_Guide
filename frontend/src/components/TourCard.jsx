@@ -50,7 +50,7 @@ const TourCard = ({ tour }) => {
     <div className="group flex h-full flex-col overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
       <div className="relative aspect-[4/3] overflow-hidden bg-slate-200">
         <img
-          src={tour.image || fallbackImage}
+          src={tour.image || tour.imageUrl || fallbackImage}
           alt={tour.title || 'Tour image'}
           className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
         />

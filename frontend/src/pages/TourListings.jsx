@@ -9,7 +9,7 @@ import Spinner from '../components/Spinner';
 const TourListings = () => {
   const [tours, setTours] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [filters, setFilters] = useState({ location: '', category: '', price: '', language: '', date: '', rating: '' });
+  const [filters, setFilters] = useState({ location: '', category: '', price: '', language: '', date: '', rating: '', search: '' });
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [searchParams] = useSearchParams();
@@ -17,7 +17,10 @@ const TourListings = () => {
   const fetchTours = async (reset = false, pageNum = page) => {
     setLoading(true);
     const params = { page: pageNum, limit: 6 };
-    if (filters.location) params.location = filters.location;
+    if (filters.location) {
+      params.location = filters.location;
+      params.search = filters.location;
+    }
     if (filters.category) params.category = filters.category;
     if (filters.price) params.maxPrice = filters.price;
     if (filters.language) params.language = filters.language;
@@ -42,12 +45,13 @@ const TourListings = () => {
   useEffect(() => {
     const params = Object.fromEntries([...searchParams.entries()]);
     setFilters({
-      location: params.location || '',
+      location: params.search || params.location || '',
       category: params.category || '',
       language: params.language || '',
       date: params.date || '',
       rating: params.rating || '',
-      price: params.price || ''
+      price: params.price || '',
+      search: params.search || params.location || ''
     });
     setPage(1);
      
@@ -83,7 +87,7 @@ const TourListings = () => {
         </section>
 
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 grid gap-10 xl:grid-cols-[320px_minmax(0,1fr)]">
-          <aside className="sticky top-24 rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm">
+          <aside className="sticky top-24 rounded-[2rem] border border-slate-300 bg-slate-50 p-6 shadow-sm shadow-slate-200/50">
             <div className="mb-6">
               <p className="text-sm uppercase tracking-[0.35em] text-blue-600">Filters</p>
               <h2 className="mt-3 text-2xl font-extrabold text-slate-900">Refine results</h2>

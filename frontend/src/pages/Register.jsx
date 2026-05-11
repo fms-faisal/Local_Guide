@@ -39,7 +39,7 @@ const Register = () => {
       <Navbar />
       <main className="min-h-screen bg-slate-50 py-20 px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-3xl">
-          <div className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm sm:p-10">
+          <div className="rounded-[2rem] border border-slate-300 bg-white p-8 shadow-lg shadow-slate-200/40 sm:p-10">
             <div className="mb-10 text-center">
               <p className="text-sm uppercase tracking-[0.35em] text-emerald-500">Join the community</p>
               <h1 className="mt-3 text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl">Create your guide profile</h1>

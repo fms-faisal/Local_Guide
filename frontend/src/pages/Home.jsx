@@ -11,7 +11,10 @@ const Home = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     const params = new URLSearchParams();
-    if (searchDestination) params.set('location', searchDestination);
+    if (searchDestination) {
+      params.set('location', searchDestination);
+      params.set('search', searchDestination);
+    }
     if (searchDate) params.set('date', searchDate);
     if (searchGuests) params.set('guests', searchGuests);
     const query = params.toString();
@@ -76,7 +79,7 @@ const Home = () => {
     <main className="space-y-20 py-16 px-4 sm:px-6 lg:px-8">
       <section className="mx-auto max-w-7xl">
         <div className="grid gap-8 lg:grid-cols-3">
-          <div className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm">
+          <div className="rounded-[2rem] border border-slate-300 bg-white p-8 shadow-sm shadow-slate-200/40">
             <p className="text-sm uppercase tracking-[0.35em] text-blue-600">Featured categories</p>
             <h2 className="mt-3 text-3xl font-extrabold text-slate-900">Explore the best experiences</h2>
             <p className="mt-4 text-slate-600 leading-relaxed">Search by interest and discover local-guided tours that match your travel style.</p>
@@ -123,7 +126,7 @@ const Home = () => {
             { title: 'Culinary market tour', subtitle: 'Taste authentic flavors', price: 74, image: 'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1200&q=80' },
             { title: 'Coastal kayaking trip', subtitle: 'Ocean adventure with a guide', price: 129, image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80' },
           ].map((item) => (
-            <article key={item.title} className="group overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
+            <article key={item.title} className="group overflow-hidden rounded-[2rem] border border-slate-300 bg-white p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
               <div
                 className="mb-6 h-48 rounded-[1.5rem] bg-cover bg-center"
                 style={{ backgroundImage: `url(${item.image})` }}

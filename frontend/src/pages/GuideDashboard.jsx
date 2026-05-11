@@ -7,7 +7,7 @@ import { useAuth } from '../context/AuthContext';
 
 const GuideDashboard = () => {
   const [bookings, setBookings] = useState([]);
-  const [newTour, setNewTour] = useState({ title: '', description: '', location: '', category: '', language: '', price: '', availabilityDates: '' });
+  const [newTour, setNewTour] = useState({ title: '', description: '', location: '', category: '', language: '', price: '', availabilityDates: '', image: '' });
   const [error, setError] = useState('');
   const { user } = useAuth();
 
@@ -36,10 +36,20 @@ const GuideDashboard = () => {
         availabilityDates: newTour.availabilityDates.split(',').map(d => new Date(d.trim())),
       });
       setError('Tour created successfully.');
-      setNewTour({ title: '', description: '', location: '', category: '', language: '', price: '', availabilityDates: '' });
+      setNewTour({ title: '', description: '', location: '', category: '', language: '', price: '', availabilityDates: '', image: '' });
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to create tour');
     }
+  };
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      setNewTour(prev => ({ ...prev, image: reader.result }));
+    };
+    reader.readAsDataURL(file);
   };
 
   const handleApprove = async (id, status) => {
@@ -72,22 +82,22 @@ const GuideDashboard = () => {
           </div>
 
           <div className="grid gap-6 md:grid-cols-3 mb-10">
-            <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm">
+            <div className="rounded-[2rem] border border-slate-300 bg-slate-50 p-6 shadow-sm shadow-slate-200/50">
               <p className="text-sm uppercase tracking-[0.35em] text-slate-500">Total bookings</p>
               <p className="mt-4 text-3xl font-extrabold text-slate-900">{stats.total}</p>
             </div>
-            <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm">
+            <div className="rounded-[2rem] border border-slate-300 bg-slate-50 p-6 shadow-sm shadow-slate-200/50">
               <p className="text-sm uppercase tracking-[0.35em] text-slate-500">Pending</p>
               <p className="mt-4 text-3xl font-extrabold text-amber-600">{stats.pending}</p>
             </div>
-            <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm">
+            <div className="rounded-[2rem] border border-slate-300 bg-slate-50 p-6 shadow-sm shadow-slate-200/50">
               <p className="text-sm uppercase tracking-[0.35em] text-slate-500">Approved</p>
               <p className="mt-4 text-3xl font-extrabold text-emerald-600">{stats.approved}</p>
             </div>
           </div>
 
           <section className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-            <div className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm">
+            <div className="rounded-[2rem] border border-slate-300 bg-slate-50 p-8 shadow-sm shadow-slate-200/40">
               <div className="mb-6">
                 <p className="text-sm uppercase tracking-[0.35em] text-slate-500">Create New Tour</p>
                 <h2 className="text-2xl font-bold text-slate-900">Launch your next experience</h2>
@@ -105,6 +115,15 @@ const GuideDashboard = () => {
                   <input name="price" type="number" placeholder="Price" aria-label="Price" value={newTour.price} onChange={handleChange} className="rounded-3xl border border-slate-200 bg-slate-50 px-5 py-4 text-slate-900 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20" required />
                 </div>
                 <input name="availabilityDates" placeholder="Availability Dates (YYYY-MM-DD, comma separated)" aria-label="Availability Dates" value={newTour.availabilityDates} onChange={handleChange} className="w-full rounded-3xl border border-slate-200 bg-slate-50 px-5 py-4 text-slate-900 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20" required />
+                <label className="block">
+                  <span className="text-sm font-semibold text-slate-700">Tour image</span>
+                  <input type="file" accept="image/*" onChange={handleImageUpload} className="mt-2 w-full rounded-3xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none file:mr-4 file:rounded-full file:border-0 file:bg-blue-600 file:px-4 file:py-2 file:text-white file:font-semibold focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20" />
+                </label>
+                {newTour.image && (
+                  <div className="rounded-3xl overflow-hidden border border-slate-200 mt-4">
+                    <img src={newTour.image} alt="Tour preview" className="h-40 w-full object-cover" />
+                  </div>
+                )}
                 <button type="submit" className="w-full rounded-3xl bg-blue-600 px-6 py-4 text-base font-semibold text-white shadow-sm transition hover:bg-blue-700 focus:ring-4 focus:ring-blue-500/20">Create Tour</button>
               </form>
             </div>

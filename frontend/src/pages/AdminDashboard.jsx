@@ -26,16 +26,16 @@ const AdminDashboard = () => {
                 <p className="text-slate-600 mt-2">Monitor user growth, tour activity, and booking performance at a glance.</p>
               </div>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-                <div className="rounded-3xl bg-blue-50 p-5 text-center">
-                  <p className="text-sm text-blue-600">Users</p>
+                <div className="rounded-3xl bg-slate-50 border border-slate-200 p-5 text-center shadow-sm shadow-slate-200/50">
+                  <p className="text-sm text-slate-600">Users</p>
                   <p className="mt-3 text-3xl font-bold text-slate-900">{stats.users || 0}</p>
                 </div>
-                <div className="rounded-3xl bg-blue-50 p-5 text-center">
-                  <p className="text-sm text-blue-600">Tours</p>
+                <div className="rounded-3xl bg-slate-50 border border-slate-200 p-5 text-center shadow-sm shadow-slate-200/50">
+                  <p className="text-sm text-slate-600">Tours</p>
                   <p className="mt-3 text-3xl font-bold text-slate-900">{stats.tours || 0}</p>
                 </div>
-                <div className="rounded-3xl bg-blue-50 p-5 text-center">
-                  <p className="text-sm text-blue-600">Bookings</p>
+                <div className="rounded-3xl bg-slate-50 border border-slate-200 p-5 text-center shadow-sm shadow-slate-200/50">
+                  <p className="text-sm text-slate-600">Bookings</p>
                   <p className="mt-3 text-3xl font-bold text-slate-900">{stats.bookings || 0}</p>
                 </div>
               </div>
@@ -49,12 +49,12 @@ const AdminDashboard = () => {
             </div>
             <div className="grid gap-4">
               {users.length > 0 ? users.map(u => (
-                <div key={u._id} className="rounded-[1.75rem] border border-slate-200 bg-slate-50 p-5 shadow-sm flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                <div key={u._id} className="rounded-[1.75rem] border border-slate-200 bg-white p-5 shadow-sm flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                   <div>
                     <p className="font-semibold text-slate-900">{u.name}</p>
                     <p className="text-sm text-slate-500">{u.email}</p>
                   </div>
-                  <span className="inline-flex items-center rounded-full bg-blue-100 px-3 py-1 text-sm font-semibold text-blue-700">{u.role}</span>
+                  <span className="inline-flex items-center rounded-full bg-slate-100 px-3 py-1 text-sm font-semibold text-slate-900">{u.role}</span>
                 </div>
               )) : (
                 <div className="rounded-[1.75rem] border border-dashed border-slate-300 bg-slate-50 p-10 text-center text-slate-500">No users found.</div>

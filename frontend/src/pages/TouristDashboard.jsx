@@ -39,15 +39,15 @@ const TouristDashboard = () => {
           </div>
 
           <div className="grid gap-6 md:grid-cols-3 mb-8">
-            <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm">
+            <div className="rounded-[2rem] border border-slate-300 bg-slate-50 p-6 shadow-sm shadow-slate-200/50">
               <p className="text-sm uppercase tracking-[0.35em] text-slate-500">Total bookings</p>
               <p className="mt-4 text-3xl font-extrabold text-slate-900">{stats.total}</p>
             </div>
-            <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm">
+            <div className="rounded-[2rem] border border-slate-300 bg-slate-50 p-6 shadow-sm shadow-slate-200/50">
               <p className="text-sm uppercase tracking-[0.35em] text-slate-500">Upcoming</p>
               <p className="mt-4 text-3xl font-extrabold text-emerald-600">{stats.upcoming}</p>
             </div>
-            <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm">
+            <div className="rounded-[2rem] border border-slate-300 bg-slate-50 p-6 shadow-sm shadow-slate-200/50">
               <p className="text-sm uppercase tracking-[0.35em] text-slate-500">Pending</p>
               <p className="mt-4 text-3xl font-extrabold text-amber-600">{stats.pending}</p>
             </div>

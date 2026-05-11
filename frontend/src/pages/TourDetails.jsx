@@ -98,19 +98,27 @@ const TourDetails = () => {
             </div>
             <div className="space-y-8 p-8 sm:p-10">
               <section className="grid gap-4 sm:grid-cols-2">
-                <div className="rounded-[1.5rem] border border-slate-200 bg-slate-50 p-6">
-                  <p className="text-sm uppercase tracking-[0.35em] text-slate-500">Location</p>
-                  <p className="mt-3 text-xl font-semibold text-slate-900">{tour.location}</p>
+                <div className="rounded-[1.5rem] border border-slate-300 bg-slate-100 p-6 shadow-sm">
+                  <p className="text-xs uppercase tracking-[0.35em] text-slate-500">Location</p>
+                  <p className="mt-3 text-2xl font-semibold text-slate-900">{tour.location}</p>
+                  <p className="mt-2 text-sm text-slate-600">Primary destination for this experience.</p>
                 </div>
-                <div className="rounded-[1.5rem] border border-slate-200 bg-slate-50 p-6">
-                  <p className="text-sm uppercase tracking-[0.35em] text-slate-500">Language</p>
-                  <p className="mt-3 text-xl font-semibold text-slate-900">{tour.language}</p>
+                <div className="rounded-[1.5rem] border border-slate-300 bg-slate-100 p-6 shadow-sm">
+                  <p className="text-xs uppercase tracking-[0.35em] text-slate-500">Language</p>
+                  <p className="mt-3 text-2xl font-semibold text-slate-900">{tour.language}</p>
+                  <p className="mt-2 text-sm text-slate-600">Language used by the guide during the tour.</p>
                 </div>
               </section>
 
-              <section className="rounded-[1.5rem] border border-slate-200 bg-slate-50 p-6">
-                <p className="text-sm uppercase tracking-[0.35em] text-slate-500">About this tour</p>
-                <p className="mt-4 text-slate-600 leading-relaxed">{tour.description}</p>
+              <section className="rounded-[1.5rem] border border-slate-300 bg-white p-8 shadow-sm">
+                <div className="flex items-center gap-3 border-b border-slate-200 pb-4">
+                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-3xl bg-blue-500 text-white">i</span>
+                  <div>
+                    <p className="text-sm uppercase tracking-[0.35em] text-slate-500">About this tour</p>
+                    <h2 className="mt-2 text-2xl font-semibold text-slate-900">What to expect</h2>
+                  </div>
+                </div>
+                <p className="mt-6 text-slate-600 leading-relaxed">{tour.description}</p>
               </section>
 
               <section className="grid gap-4 sm:grid-cols-2">
@@ -170,8 +178,8 @@ const TourDetails = () => {
             </div>
           </article>
 
-          <aside className="lg:sticky lg:top-24 rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm">
-            <div className="rounded-[1.5rem] bg-slate-50 p-6">
+          <aside className="lg:sticky lg:top-24 rounded-[2rem] border border-slate-200 bg-white p-6 shadow-lg shadow-slate-100">
+            <div className="rounded-[1.5rem] bg-slate-50 p-6 shadow-sm">
               <p className="text-sm uppercase tracking-[0.35em] text-slate-500">Book now</p>
               <p className="mt-3 text-3xl font-extrabold text-slate-900">${tour.price}</p>
               <p className="mt-2 text-sm text-slate-600">Per person, booked with a verified guide.</p>

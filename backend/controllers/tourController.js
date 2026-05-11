@@ -1,26 +1,27 @@
-// GET /api/tours/:id
-exports.getTourById = async (req, res) => {
-  try {
-    const tour = await Tour.findById(req.params.id).populate('guideId', 'name profileDetails');
-    if (!tour) return res.status(404).json({ message: 'Tour not found' });
-    res.json(tour);
-  } catch (err) {
-    res.status(500).json({ message: 'Failed to fetch tour', error: err.message });
-  }
-};
-// backend/controllers/tourController.js
 const Tour = require('../models/Tour');
 const Booking = require('../models/Booking');
 const Review = require('../models/Review');
 
+const escapeRegex = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
 // GET /api/tours (with search/filter)
 exports.getTours = async (req, res) => {
   try {
-    const { location, category, minPrice, maxPrice, language, rating, date, page = 1, limit = 6 } = req.query;
+    const { search, location, category, minPrice, maxPrice, language, rating, date, page = 1, limit = 6 } = req.query;
     let filter = {};
-    if (location) filter.location = location;
-    if (category) filter.category = category;
-    if (language) filter.language = language;
+    if (search || location) {
+      const term = search || location;
+      const regex = { $regex: escapeRegex(term), $options: 'i' };
+      filter.$or = [
+        { location: regex },
+        { title: regex },
+        { description: regex },
+        { category: regex },
+        { language: regex }
+      ];
+    }
+    if (category) filter.category = { $regex: escapeRegex(category), $options: 'i' };
+    if (language) filter.language = { $regex: escapeRegex(language), $options: 'i' };
     if (minPrice || maxPrice) {
       filter.price = {};
       if (minPrice) filter.price.$gte = Number(minPrice);
@@ -55,10 +56,21 @@ exports.getTours = async (req, res) => {
   }
 };
 
+// GET /api/tours/:id
+exports.getTourById = async (req, res) => {
+  try {
+    const tour = await Tour.findById(req.params.id).populate('guideId', 'name profileDetails');
+    if (!tour) return res.status(404).json({ message: 'Tour not found' });
+    res.json(tour);
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to fetch tour', error: err.message });
+  }
+};
+
 // POST /api/tours (Guide only)
 exports.createTour = async (req, res) => {
   try {
-    const { title, description, location, category, language, price, availabilityDates } = req.body;
+    const { title, description, location, category, language, price, availabilityDates, image } = req.body;
     const tour = new Tour({
       guideId: req.user.id,
       title,
@@ -68,6 +80,7 @@ exports.createTour = async (req, res) => {
       language,
       price,
       availabilityDates,
+      image,
     });
     await tour.save();
     res.status(201).json(tour);
