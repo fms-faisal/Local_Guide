@@ -14,7 +14,7 @@ import AdminDashboard from './pages/AdminDashboard';
 import ProtectedRoute from './components/ProtectedRoute';
 import Profile from './pages/Profile';
 import Footer from './components/Footer';
-import Breadcrumbs from './components/Breadcrumbs';
+// import Breadcrumbs from './components/Breadcrumbs';
 
 
 function App() {
@@ -22,7 +22,7 @@ function App() {
     <Router>
       <AuthProvider>
         <div className="min-h-screen flex flex-col">
-          <Breadcrumbs />
+          {/* <Breadcrumbs /> */}
           <div className="flex-1">
             <Routes>
             <Route path="/" element={<Home />} />
