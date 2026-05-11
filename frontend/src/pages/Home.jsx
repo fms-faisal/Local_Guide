@@ -1,33 +1,71 @@
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
-import { Link } from 'react-router-dom';
 
-const Home = () => (
-  <div className="min-h-screen bg-slate-50 text-slate-900">
+const Home = () => {
+  const [searchDestination, setSearchDestination] = useState('');
+  const [searchDate, setSearchDate] = useState('');
+  const [searchGuests, setSearchGuests] = useState(1);
+  const navigate = useNavigate();
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const params = new URLSearchParams();
+    if (searchDestination) params.set('location', searchDestination);
+    if (searchDate) params.set('date', searchDate);
+    if (searchGuests) params.set('guests', searchGuests);
+    const query = params.toString();
+    navigate(query ? `/tours?${query}` : '/tours');
+  };
+
+  return (
+    <div className="min-h-screen bg-slate-50 text-slate-900">
     <Navbar />
 
     <header className="relative overflow-hidden bg-slate-950">
-      <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1526481280694-3d0f049d96fd?auto=format&fit=crop&w=1600&q=80')] bg-cover bg-center opacity-80"></div>
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-950/95 via-slate-900/80 to-slate-900/95" />
+      <div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: "url('https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1600&q=80')" }}
+      />
+      <div className="absolute inset-0 bg-slate-950/75" />
       <div className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-32 lg:px-8">
         <div className="max-w-3xl text-center mx-auto">
-          <p className="text-sm uppercase tracking-[0.35em] text-emerald-300 mb-4">Authentic local experiences</p>
-          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl text-white">Discover unforgettable tours guided by locals.</h1>
-          <p className="mt-6 text-lg leading-relaxed text-slate-100 sm:text-xl">Find premium guided adventures, immersive cultural tours, and one-of-a-kind local experiences across the world.</p>
+          <p className="text-sm uppercase tracking-[0.35em] text-emerald-300 mb-4">Authentic Bangladeshi experiences</p>
+          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl text-white">Discover unforgettable Bangladesh tours guided by locals.</h1>
+          <p className="mt-6 text-lg leading-relaxed text-slate-100 sm:text-xl">Explore heritage streets, tea gardens, mangrove safaris, and coastal sunrises with trusted local guides.</p>
         </div>
 
         <div className="relative mt-16 rounded-[2rem] border border-white/10 bg-white/95 px-5 py-6 shadow-2xl backdrop-blur-xl sm:px-6 lg:px-8 lg:max-w-5xl lg:mx-auto">
-          <form className="grid gap-4 sm:grid-cols-[1.4fr_1fr_1fr_0.9fr]" aria-label="Search tours">
+          <form onSubmit={handleSearch} className="grid gap-4 sm:grid-cols-[1.4fr_1fr_1fr_0.9fr]" aria-label="Search tours">
             <label className="relative block">
               <span className="sr-only">Destination</span>
-              <input type="text" placeholder="Destination" className="w-full rounded-3xl border border-slate-200 bg-slate-50 px-5 py-4 text-slate-900 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20" />
+              <input
+                type="text"
+                placeholder="Destination"
+                value={searchDestination}
+                onChange={(e) => setSearchDestination(e.target.value)}
+                className="w-full rounded-3xl border border-slate-200 bg-slate-50 px-5 py-4 text-slate-900 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+              />
             </label>
             <label className="relative block">
               <span className="sr-only">Date</span>
-              <input type="date" className="w-full rounded-3xl border border-slate-200 bg-slate-50 px-5 py-4 text-slate-900 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20" />
+              <input
+                type="date"
+                value={searchDate}
+                onChange={(e) => setSearchDate(e.target.value)}
+                className="w-full rounded-3xl border border-slate-200 bg-slate-50 px-5 py-4 text-slate-900 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+              />
             </label>
             <label className="relative block">
               <span className="sr-only">Guests</span>
-              <input type="number" min="1" placeholder="Guests" className="w-full rounded-3xl border border-slate-200 bg-slate-50 px-5 py-4 text-slate-900 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20" />
+              <input
+                type="number"
+                min="1"
+                placeholder="Guests"
+                value={searchGuests}
+                onChange={(e) => setSearchGuests(e.target.value)}
+                className="w-full rounded-3xl border border-slate-200 bg-slate-50 px-5 py-4 text-slate-900 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+              />
             </label>
             <button type="submit" className="rounded-3xl bg-blue-600 px-6 py-4 text-base font-semibold text-white shadow-sm transition hover:bg-blue-700 focus:ring-4 focus:ring-blue-500/25">Search</button>
           </form>
@@ -46,7 +84,10 @@ const Home = () => (
 
           <div className="grid gap-6 sm:grid-cols-2 lg:col-span-2">
             <Link to="/tours?category=Adventure" className="group relative overflow-hidden rounded-[2rem] shadow-xl transition hover:-translate-y-1 hover:shadow-2xl">
-              <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80')] bg-cover bg-center" />
+              <div
+                className="absolute inset-0 bg-cover bg-center"
+                style={{ backgroundImage: "url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80')" }}
+              />
               <div className="absolute inset-0 bg-slate-950/45" />
               <div className="relative p-8 text-white">
                 <p className="text-sm uppercase tracking-[0.35em] text-blue-100">Adventure</p>
@@ -55,7 +96,10 @@ const Home = () => (
               </div>
             </Link>
             <Link to="/tours?category=Culture" className="group relative overflow-hidden rounded-[2rem] shadow-xl transition hover:-translate-y-1 hover:shadow-2xl">
-              <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1485906077845-9dbbccd4b06d?auto=format&fit=crop&w=1200&q=80')] bg-cover bg-center" />
+              <div
+                className="absolute inset-0 bg-cover bg-center"
+                style={{ backgroundImage: "url('https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=1200&q=80')" }}
+              />
               <div className="absolute inset-0 bg-slate-950/45" />
               <div className="relative p-8 text-white">
                 <p className="text-sm uppercase tracking-[0.35em] text-blue-100">Culture</p>
@@ -75,12 +119,15 @@ const Home = () => (
         </div>
         <div className="grid gap-6 lg:grid-cols-3">
           {[
-            { title: 'Sunrise city walk', subtitle: 'Local history & hidden gems', price: 89 },
-            { title: 'Culinary market tour', subtitle: 'Taste authentic flavors', price: 74 },
-            { title: 'Coastal kayaking trip', subtitle: 'Ocean adventure with a guide', price: 129 },
+            { title: 'Sunrise city walk', subtitle: 'Local history & hidden gems', price: 89, image: 'https://images.unsplash.com/photo-1516822003754-cca485356ecb?auto=format&fit=crop&w=1200&q=80' },
+            { title: 'Culinary market tour', subtitle: 'Taste authentic flavors', price: 74, image: 'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1200&q=80' },
+            { title: 'Coastal kayaking trip', subtitle: 'Ocean adventure with a guide', price: 129, image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80' },
           ].map((item) => (
             <article key={item.title} className="group overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
-              <div className="mb-6 h-48 rounded-[1.5rem] bg-gradient-to-br from-blue-600 to-indigo-700" />
+              <div
+                className="mb-6 h-48 rounded-[1.5rem] bg-cover bg-center"
+                style={{ backgroundImage: `url(${item.image})` }}
+              />
               <div>
                 <p className="text-sm uppercase tracking-[0.35em] text-blue-600">{item.title}</p>
                 <h3 className="mt-4 text-2xl font-semibold text-slate-900">{item.subtitle}</h3>
@@ -110,7 +157,7 @@ const Home = () => (
         </div>
       </section>
     </main>
-  </div>
-);
-
+    </div>
+  );
+};
 export default Home;

@@ -10,14 +10,23 @@ const TourCard = ({ tour }) => {
   const [reviewMsg, setReviewMsg] = useState('');
   const [review, setReview] = useState('');
   const [rating, setRating] = useState(5);
+  const [selectedDate, setSelectedDate] = useState(
+    tour.availabilityDates?.length ? new Date(tour.availabilityDates[0]).toISOString().slice(0, 10) : ''
+  );
 
+  const fallbackImage = 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80';
   const averageRating = tour.rating || tour.averageRating || 4.8;
   const stars = Array.from({ length: 5 }, (_, index) => index < Math.round(averageRating));
 
   const handleBook = async () => {
     setBookingMsg('');
+    if (!selectedDate) {
+      setBookingMsg('Please select a booking date.');
+      return;
+    }
+
     try {
-      await api.post('/bookings', { tourId: tour._id });
+      await api.post('/bookings', { tourId: tour._id, date: selectedDate });
       setBookingMsg('Booking requested!');
     } catch (err) {
       setBookingMsg(err.response?.data?.message || 'Booking failed');
@@ -40,11 +49,11 @@ const TourCard = ({ tour }) => {
   return (
     <div className="group flex h-full flex-col overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
       <div className="relative aspect-[4/3] overflow-hidden bg-slate-200">
-        {tour.image ? (
-          <img src={tour.image} alt={tour.title} className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
-        ) : (
-          <div className="h-full w-full bg-gradient-to-br from-blue-600 via-indigo-600 to-slate-900" />
-        )}
+        <img
+          src={tour.image || fallbackImage}
+          alt={tour.title || 'Tour image'}
+          className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+        />
         <div className="absolute inset-x-5 top-5 flex items-center justify-between gap-3">
           <span className="rounded-full bg-slate-950/80 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-white">{tour.location || 'Global'}</span>
           <span className="rounded-full bg-emerald-500 px-3 py-1 text-xs font-semibold text-white">${tour.price}</span>
@@ -84,6 +93,19 @@ const TourCard = ({ tour }) => {
             <p className="font-medium text-slate-900">{tour.guideId?.name || 'Guide'}</p>
             <p className="text-slate-500">Local expert</p>
           </div>
+        </div>
+
+        <div className="mt-6 rounded-3xl border border-slate-200 bg-slate-50 p-4">
+          <label className="block text-sm font-semibold text-slate-700">Choose a tour date</label>
+          <input
+            type="date"
+            value={selectedDate}
+            onChange={(e) => setSelectedDate(e.target.value)}
+            className="mt-2 w-full rounded-3xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+          />
+          {tour.availabilityDates?.length > 0 && (
+            <p className="mt-2 text-xs text-slate-500">Available dates: {tour.availabilityDates.slice(0, 3).map((d) => new Date(d).toLocaleDateString()).join(', ')}</p>
+          )}
         </div>
 
         <div className="mt-auto pt-6">

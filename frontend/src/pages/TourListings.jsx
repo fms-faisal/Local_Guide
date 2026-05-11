@@ -1,5 +1,6 @@
 
 import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import api from '../services/api';
 import Navbar from '../components/Navbar';
 import TourCard from '../components/TourCard';
@@ -8,15 +9,17 @@ import Spinner from '../components/Spinner';
 const TourListings = () => {
   const [tours, setTours] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [filters, setFilters] = useState({ location: '', price: '', language: '', date: '', rating: '' });
+  const [filters, setFilters] = useState({ location: '', category: '', price: '', language: '', date: '', rating: '' });
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
+  const [searchParams] = useSearchParams();
 
   const fetchTours = async (reset = false, pageNum = page) => {
     setLoading(true);
     const params = { page: pageNum, limit: 6 };
     if (filters.location) params.location = filters.location;
-    if (filters.price) params.price = filters.price;
+    if (filters.category) params.category = filters.category;
+    if (filters.price) params.maxPrice = filters.price;
     if (filters.language) params.language = filters.language;
     if (filters.date) params.date = filters.date;
     if (filters.rating) params.rating = filters.rating;
@@ -35,6 +38,20 @@ const TourListings = () => {
     setPage(1);
     // eslint-disable-next-line
   }, [filters]);
+
+  useEffect(() => {
+    const params = Object.fromEntries([...searchParams.entries()]);
+    setFilters({
+      location: params.location || '',
+      category: params.category || '',
+      language: params.language || '',
+      date: params.date || '',
+      rating: params.rating || '',
+      price: params.price || ''
+    });
+    setPage(1);
+     
+  }, [searchParams]);
 
   const handleChange = e => {
     setFilters({ ...filters, [e.target.name]: e.target.value });

@@ -16,6 +16,8 @@ const TourDetails = () => {
   const [review, setReview] = useState('');
   const [rating, setRating] = useState(5);
   const [reviewMsg, setReviewMsg] = useState('');
+  const [selectedDate, setSelectedDate] = useState('');
+  const [bookingMsg, setBookingMsg] = useState('');
 
   const handleReview = async (e) => {
     e.preventDefault();
@@ -29,6 +31,21 @@ const TourDetails = () => {
       setReviews(res.data);
     } catch (err) {
       setReviewMsg(err.response?.data?.message || 'Review failed');
+    }
+  };
+
+  const handleBooking = async () => {
+    setBookingMsg('');
+    if (!selectedDate) {
+      setBookingMsg('Please select a date to book this tour.');
+      return;
+    }
+
+    try {
+      await api.post('/bookings', { tourId: id, date: selectedDate });
+      setBookingMsg('Booking requested!');
+    } catch (err) {
+      setBookingMsg(err.response?.data?.message || 'Booking failed');
     }
   };
 
@@ -162,10 +179,26 @@ const TourDetails = () => {
             <div className="mt-6 rounded-[1.5rem] border border-slate-200 bg-white p-6 shadow-sm">
               <h3 className="text-lg font-semibold text-slate-900">Select a date</h3>
               <div className="mt-4">
-                <BookingCalendar availableDates={(tour.availabilityDates || []).map(d => d.split('T')[0])} onDateSelect={() => {}} />
+                <BookingCalendar
+                  availableDates={(tour.availabilityDates || []).map((d) => {
+                    return typeof d === 'string' ? d.split('T')[0] : new Date(d).toISOString().split('T')[0];
+                  })}
+                  onDateSelect={(date) => {
+                    if (date) {
+                      setSelectedDate(date.toISOString().split('T')[0]);
+                    }
+                  }}
+                />
               </div>
             </div>
-            <button className="mt-6 w-full rounded-3xl bg-blue-600 px-6 py-4 text-base font-semibold text-white shadow-sm transition hover:bg-blue-700 focus:ring-4 focus:ring-blue-500/20">Book Now</button>
+            {user && user.role === 'Tourist' ? (
+              <>
+                <button onClick={handleBooking} className="mt-6 w-full rounded-3xl bg-blue-600 px-6 py-4 text-base font-semibold text-white shadow-sm transition hover:bg-blue-700 focus:ring-4 focus:ring-blue-500/20">Book Now</button>
+                {bookingMsg && <p className="mt-3 text-center text-sm font-medium text-emerald-600">{bookingMsg}</p>}
+              </>
+            ) : (
+              <p className="mt-6 text-sm text-slate-500">Sign in as a Tourist to book this tour.</p>
+            )}
           </aside>
         </div>
       </main>

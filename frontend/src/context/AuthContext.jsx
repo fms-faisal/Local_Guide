@@ -2,14 +2,17 @@ import { createContext, useContext, useState, useEffect } from 'react';
 
 const AuthContext = createContext();
 
+const storedToken = localStorage.getItem('token');
+const storedRole = localStorage.getItem('role');
+
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [token, setToken] = useState(localStorage.getItem('token'));
+  const [token, setToken] = useState(storedToken);
+  const [user, setUser] = useState(storedToken ? { role: storedRole } : null);
 
   useEffect(() => {
     if (token) {
-      // In a real app, decode token or fetch user info
-      setUser({ role: localStorage.getItem('role') });
+      const role = localStorage.getItem('role');
+      setUser({ role });
     } else {
       setUser(null);
     }

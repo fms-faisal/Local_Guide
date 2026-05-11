@@ -12,8 +12,9 @@ const GuideDashboard = () => {
   const { user } = useAuth();
 
   useEffect(() => {
+    if (!user) return;
     api.get('/bookings/my-bookings').then(res => setBookings(res.data));
-  }, [user?.id]);
+  }, [user]);
 
   const stats = useMemo(() => ({
     total: bookings.length,
@@ -34,15 +35,20 @@ const GuideDashboard = () => {
         price: Number(newTour.price),
         availabilityDates: newTour.availabilityDates.split(',').map(d => new Date(d.trim())),
       });
-      window.location.reload();
+      setError('Tour created successfully.');
+      setNewTour({ title: '', description: '', location: '', category: '', language: '', price: '', availabilityDates: '' });
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to create tour');
     }
   };
 
   const handleApprove = async (id, status) => {
-    await api.patch(`/bookings/${id}/status`, { status });
-    window.location.reload();
+    try {
+      const res = await api.patch(`/bookings/${id}/status`, { status });
+      setBookings(prev => prev.map(b => (b._id === id ? { ...b, status: res.data.status } : b)));
+    } catch (err) {
+      setError(err.response?.data?.message || 'Failed to update booking status');
+    }
   };
 
   return (
