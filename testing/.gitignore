@@ -1,0 +1,12 @@
+node_modules/
+reports/
+test-results/
+*.zip
+*.webm
+*.png
+checkTour.js
+checkTourId.js
+debug*.js
+detailRouteCheck.js
+reproduceBooking.js
+reproduceNegative.js

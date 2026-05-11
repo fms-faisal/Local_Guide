@@ -1,0 +1,83 @@
+Playwright Test Plan for Local Guide Platform
+===============================================
+
+Date: May 11, 2026
+Role: Senior SQA Automation Engineer
+
+Summary:
+--------
+This test plan covers the critical end-to-end flows for Tourist, Guide, and Admin roles in the Local Guide Platform.
+It includes registration, login, tour creation, booking approval workflow, and negative validation checks.
+
+Environment:
+------------
+- Frontend app URL: http://localhost:5173
+- Backend app URL: http://localhost:5000
+- Playwright configuration installed in /testing
+- Test execution via: npm test
+- Report output: /testing/reports/playwright-report
+
+Test Cases:
+-----------
+1. Tourist Registration & Login
+   - Navigate to /register
+   - Fill in Name, Email, Password, and Role = Tourist
+   - Submit registration
+   - Verify redirect to /dashboard/tourist
+   - Log out and log in again using the same credentials
+   - Verify Navbar contains "My Dashboard"
+   - Outcome: PASS if registration and login flow works end-to-end.
+
+2. Guide Tour Creation
+   - Register and log in as Guide
+   - Navigate to /dashboard/guide
+   - Fill create tour form with Title, Description, Location, Category, Language, Price, Dates
+   - Optionally upload an image file
+   - Submit tour creation
+   - Verify the success message appears
+   - Search tours by title in the main Tours listing page and verify the guide tour is visible
+   - Outcome: PASS if the Guide can create a tour and it appears in the public listing.
+
+3. Booking Workflow (Multi-Role Integration)
+   Step 1: Tourist books the Guide's tour
+     - Log in as Tourist
+     - Find the newly created tour via /tours
+     - Open tour details and select a valid future date
+     - Submit booking request
+     - Verify the booking request is created and status is pending
+
+   Step 2: Guide approves booking
+     - Log in as Guide
+     - Navigate to /dashboard/guide
+     - Find the pending booking request for the Tourist and the tour title
+     - Click Approve
+     - Verify the booking status updates to Approved in the Guide view
+
+   Step 3: Tourist verifies approval
+     - Log back in as Tourist
+     - Navigate to /dashboard/tourist
+     - Verify the booking status for the tour is now Approved
+   - Outcome: PASS if the booking request is approved and reflected for both roles.
+
+4. Negative/Error Testing
+   a) Invalid login
+      - Attempt login with a correct email and wrong password
+      - Verify the login error alert is displayed
+      - Expected message: "Invalid Credentials" or similar user-facing error
+   b) Past-date booking validation
+      - As Tourist, attempt to book a tour with a date in the past
+      - Verify the UI prevents booking and a validation error appears
+   - Outcome: PASS if the application handles invalid inputs and displays errors correctly.
+
+Documentation Requirements:
+---------------------------
+- Tests are implemented using Playwright with Page Object Model for maintainability.
+- HTML reports are generated at /testing/reports/playwright-report.
+- Screenshots are captured automatically for failed tests.
+- Test data uses unique email values to avoid collision.
+
+Notes:
+------
+- The Playwright config includes a webServer section to start the frontend app automatically.
+- The backend should be running at http://localhost:5000 if API calls are needed.
+- If running in CI, set TEST_BASE_URL to the target app URL.

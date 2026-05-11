@@ -1,0 +1,38 @@
+{
+  "name": "guide_platform_project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test:all",
+    "test:unit:core": "jest --config local-guide-platform/jest.config.js tests/unit/authController.unit.test.js tests/unit/bookingController.unit.test.js tests/unit/tourController.unit.test.js tests/unit/adminController.unit.test.js tests/unit/middleware.unit.test.js --runInBand",
+    "test:unit:auth": "jest --config local-guide-platform/jest.config.js tests/unit/authBulk.unit.test.js --runInBand",
+    "test:unit:booking": "jest --config local-guide-platform/jest.config.js tests/unit/bookingBulk.unit.test.js --runInBand",
+    "test:unit:tourquery": "jest --config local-guide-platform/jest.config.js tests/unit/tourQueryBulk.unit.test.js --runInBand",
+    "test:unit": "npm run test:unit:core && npm run test:unit:auth && npm run test:unit:booking && npm run test:unit:tourquery",
+    "test:integration": "jest --config local-guide-platform/jest.config.js tests/integration --runInBand",
+    "test:system": "jest --config local-guide-platform/jest.config.js tests/system --runInBand",
+    "test:regression": "jest --config local-guide-platform/jest.config.js tests/regression --runInBand",
+    "test:all": "npm run test:unit && npm run test:integration && npm run test:system && npm run test:regression"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.6.2"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.0",
+    "autoprefixer": "^10.5.0",
+    "jest": "^30.4.2",
+    "mongodb-memory-server": "^11.1.0",
+    "postcss": "^8.5.14",
+    "supertest": "^7.2.2",
+    "tailwindcss": "^4.3.0"
+  }
+}
