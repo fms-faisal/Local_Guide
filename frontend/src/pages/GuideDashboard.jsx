@@ -8,6 +8,9 @@ import { useAuth } from '../context/AuthContext';
 const GuideDashboard = () => {
   const [bookings, setBookings] = useState([]);
   const [newTour, setNewTour] = useState({ title: '', description: '', location: '', category: '', language: '', price: '', availabilityDates: '', image: '' });
+  const [selectedImageFile, setSelectedImageFile] = useState(null);
+  const [imageLoading, setImageLoading] = useState(false);
+  const [imageError, setImageError] = useState('');
   const [error, setError] = useState('');
   const { user } = useAuth();
 
@@ -28,6 +31,10 @@ const GuideDashboard = () => {
 
   const handleCreateTour = async (e) => {
     e.preventDefault();
+    if (imageLoading) {
+      setError('Please wait until the image upload finishes before creating the tour.');
+      return;
+    }
     setError('');
     try {
       await api.post('/tours', {
@@ -37,6 +44,7 @@ const GuideDashboard = () => {
       });
       setError('Tour created successfully.');
       setNewTour({ title: '', description: '', location: '', category: '', language: '', price: '', availabilityDates: '', image: '' });
+      setSelectedImageFile(null);
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to create tour');
     }
@@ -45,9 +53,17 @@ const GuideDashboard = () => {
   const handleImageUpload = (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
+    setImageError('');
+    setImageLoading(true);
+    setSelectedImageFile(file);
     const reader = new FileReader();
     reader.onload = () => {
       setNewTour(prev => ({ ...prev, image: reader.result }));
+      setImageLoading(false);
+    };
+    reader.onerror = () => {
+      setImageError('Unable to read this image file. Please try a different photo.');
+      setImageLoading(false);
     };
     reader.readAsDataURL(file);
   };
@@ -119,12 +135,14 @@ const GuideDashboard = () => {
                   <span className="text-sm font-semibold text-slate-700">Tour image</span>
                   <input type="file" accept="image/*" onChange={handleImageUpload} className="mt-2 w-full rounded-3xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none file:mr-4 file:rounded-full file:border-0 file:bg-blue-600 file:px-4 file:py-2 file:text-white file:font-semibold focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20" />
                 </label>
+                {imageLoading && <p className="text-sm text-slate-500">Processing image...</p>}
+                {imageError && <p className="text-sm text-red-600">{imageError}</p>}
                 {newTour.image && (
                   <div className="rounded-3xl overflow-hidden border border-slate-200 mt-4">
                     <img src={newTour.image} alt="Tour preview" className="h-40 w-full object-cover" />
                   </div>
                 )}
-                <button type="submit" className="w-full rounded-3xl bg-blue-600 px-6 py-4 text-base font-semibold text-white shadow-sm transition hover:bg-blue-700 focus:ring-4 focus:ring-blue-500/20">Create Tour</button>
+                <button type="submit" disabled={imageLoading} className="w-full rounded-3xl bg-blue-600 px-6 py-4 text-base font-semibold text-white shadow-sm transition hover:bg-blue-700 focus:ring-4 focus:ring-blue-500/20 disabled:cursor-not-allowed disabled:opacity-50">Create Tour</button>
               </form>
             </div>
 

@@ -15,6 +15,7 @@ const TourCard = ({ tour }) => {
   );
 
   const fallbackImage = 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80';
+  const imageSource = tour.image || tour.imageUrl || tour.img || tour.imgUrl || fallbackImage;
   const averageRating = tour.rating || tour.averageRating || 4.8;
   const stars = Array.from({ length: 5 }, (_, index) => index < Math.round(averageRating));
 
@@ -50,9 +51,10 @@ const TourCard = ({ tour }) => {
     <div className="group flex h-full flex-col overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
       <div className="relative aspect-[4/3] overflow-hidden bg-slate-200">
         <img
-          src={tour.image || tour.imageUrl || fallbackImage}
+          src={imageSource}
           alt={tour.title || 'Tour image'}
           className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+          onError={(e) => { e.currentTarget.src = fallbackImage; }}
         />
         <div className="absolute inset-x-5 top-5 flex items-center justify-between gap-3">
           <span className="rounded-full bg-slate-950/80 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-white">{tour.location || 'Global'}</span>

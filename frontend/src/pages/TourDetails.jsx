@@ -74,6 +74,9 @@ const TourDetails = () => {
     fetchReviews();
   }, [id]);
 
+  const fallbackImage = 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80';
+  const imageSource = tour?.image || tour?.imageUrl || tour?.img || tour?.imgUrl || fallbackImage;
+
   if (loading) return <Spinner />;
   if (!tour) return <div className="min-h-screen flex items-center justify-center py-16 bg-slate-50"><div className="text-center text-slate-500">Tour not found.</div></div>;
 
@@ -85,8 +88,8 @@ const TourDetails = () => {
           <article className="rounded-[2rem] border border-slate-200 bg-white shadow-sm overflow-hidden">
             <div className="relative">
               <div className="aspect-[16/9] bg-slate-200">
-                {tour.image ? (
-                  <img src={tour.image} alt={tour.title} className="h-full w-full object-cover" />
+                {imageSource ? (
+                  <img src={imageSource} alt={tour.title} className="h-full w-full object-cover" onError={(e) => { e.currentTarget.src = fallbackImage; }} />
                 ) : (
                   <div className="h-full w-full bg-gradient-to-br from-blue-600 to-indigo-700" />
                 )}
